@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<header th:include="page :: header"></header>
+<div class="center-block center-wrapper">
+    <ul>
+        <li th:each="newsItem : ${news}">
+            <span th:text="${#dates.format(newsItem.date, 'dd.LL HH:mm')}"></span>
+            <span th:text="${newsItem.content}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

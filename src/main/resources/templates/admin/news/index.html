@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<header th:include="page :: header"></header>
+<div class="center-block center-wrapper">
+    <div th:include="page :: adminMenu"></div>
+    <center><a th:href="@{/admin/news/add}" class="btn btn-success">Add news</a></center>
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="3" class="text-center">News</th>
+        </tr>
+        <tr>
+            <th>Content</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="newsItem : ${news}">
+            <td th:text="${newsItem.content}">content</td>
+            <td>Edit</td>
+            <td><a th:href="@{/admin/news/delete/} + ${newsItem.id}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+
+
+table, center {
+    margin-bottom: 1%;
+    width: 100%;
+}
+
+.table-student {
+    min-width: 335px;
+}
+
+.table-teacher {
+    min-width: 400px;
+}
+
+.center-wrapper {
+    width: 80%;
+}
+
+.select-form {
+    margin: 1% 0;
+}
+
+.select-form .form-group {
+    margin-right: 2%;
+}
+
+nav.navbar ul.nav li a:hover {
+    background: #a3a3a3 !important;
+}
+
+.form-buttons a {
+    margin-right: 5%;
+}
