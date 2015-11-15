@@ -9,7 +9,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -18,11 +17,11 @@ import javax.validation.Valid;
 @RequestMapping("/admin/teachers")
 public class TeachersController {
     @Autowired
-    private TeacherDao teachersDao;
+    private TeacherDao teacherDao;
 
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
-        model.addAttribute("teachers", teachersDao.getAllTeachers());
+        model.addAttribute("teachers", teacherDao.getAllTeachers());
         return "admin/teachers/index";
     }
 
@@ -38,14 +37,14 @@ public class TeachersController {
             return "admin/teachers/add";
         }
 
-        teachersDao.save(teacherForm.toTeacher());
+        teacherDao.save(teacherForm.toTeacher());
         model.addFlashAttribute("message", "Teacher added successfully");
         return "redirect:/admin/teachers";
     }
 
     @RequestMapping(value = "/delete/{id}")
     private String deleteTeacher(@PathVariable long id, RedirectAttributes model) {
-        teachersDao.delete(id);
+        teacherDao.delete(id);
         model.addFlashAttribute("message", "Teacher deleted successfully");
         return "redirect:/admin/teachers";
     }

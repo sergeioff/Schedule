@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<header th:include="page :: header"></header>
+<div class="center-block center-wrapper">
+    <h2 class="text-center">Add a new subject</h2>
+    <form class="form-horizontal" th:object="${subjectForm}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <ul>
+                <li th:each="error : ${#fields.errors('*')}"
+                    th:text="${error}">error</li>
+            </ul>
+        </div>
+        <div th:class="${#fields.hasErrors('name')}? 'form-group has-error': 'form-group'">
+            <label th:for="name" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Name"/>
+            </div>
+        </div>
+        <div th:class="${#fields.hasErrors('teacherId')}? 'form-group has-error': 'form-group'">
+            <label th:for="teacherId" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-5">
+                <!--<input type="text" class="form-control" th:field="*{teacherId}" placeholder="Name"/>-->
+                <select class="form-control" th:field="*{teacherId}">
+                    <option th:each="teacher : ${teachers}"
+                            th:value="${teacher.id}" th:text="${teacher.name}">Teacher</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-buttons text-center">
+            <a th:href="@{/admin/teachers}" class="btn btn-danger">Cancel</a>
+            <input type="submit" value="Add" class="btn btn-success"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>
