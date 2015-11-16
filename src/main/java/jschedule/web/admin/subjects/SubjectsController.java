@@ -41,20 +41,50 @@ public class SubjectsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processSubjectForm(@Valid SubjectForm subjectForm, Errors errors, RedirectAttributes model) {
+    public String processSubjectForm(@Valid SubjectForm subjectForm, Errors errors,
+                                     Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
+            model.addAttribute("teachers", teacherDao.getAllTeachers());
             return "admin/subjects/add";
         }
 
         subjectDao.save(new Subject(subjectForm.getName(), teacherDao.getTeacherById(subjectForm.getTeacherId())));
-        model.addFlashAttribute("message", "Subject added successfully");
+        redirectAttributes.addFlashAttribute("message", "Subject added successfully");
         return "redirect:/admin/subjects";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String deleteSubject(@PathVariable long id, RedirectAttributes model) {
+    public String deleteSubject(@PathVariable long id, RedirectAttributes redirectAttributes) {
         subjectDao.delete(id);
-        model.addFlashAttribute("message", "Subject deleted successfully");
+        redirectAttributes.addFlashAttribute("message", "Subject deleted successfully");
+        return "redirect:/admin/subjects";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    private String showEditForm(@PathVariable long id, Model model) {
+        SubjectForm form = new SubjectForm();
+        Subject subject = subjectDao.getSubjectById(id);
+
+        form.setName(subject.getName());
+        form.setTeacherId(subject.getTeacher().getId());
+
+        model.addAttribute("subjectForm", form);
+        model.addAttribute("teachers", teacherDao.getAllTeachers());
+        model.addAttribute("id", id);
+        return "admin/subjects/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    private String processEdit(@PathVariable long id, @Valid SubjectForm form,
+                                Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            model.addAttribute("id", id);
+            model.addAttribute("teachers", teacherDao.getAllTeachers());
+            return "admin/subjects/edit";
+        }
+
+        subjectDao.update(id, form.getName(), teacherDao.getTeacherById(form.getTeacherId()));
+        redirectAttributes.addFlashAttribute("message", "Subject successfully updated");
         return "redirect:/admin/subjects";
     }
 }

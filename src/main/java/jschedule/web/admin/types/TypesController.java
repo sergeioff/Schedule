@@ -32,26 +32,27 @@ public class TypesController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String addTypeOfPair(@Valid TypeOfPairForm typeOfPairForm, Errors errors, RedirectAttributes model) {
+    private String addTypeOfPair(@Valid TypeOfPairForm typeOfPairForm, Errors errors,
+                                 RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "admin/types/add";
         }
 
         typeDao.save(typeOfPairForm.toTypeOfPair());
 
-        model.addFlashAttribute("message", "Type successfully added");
+        redirectAttributes.addFlashAttribute("message", "Type successfully added");
         return "redirect:/admin/types";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    private String deleteTypeOfPair(@PathVariable long id, RedirectAttributes model) {
+    private String deleteTypeOfPair(@PathVariable long id, RedirectAttributes redirectAttributes) {
         typeDao.delete(id);
-        model.addFlashAttribute("message", "Type successfully deleted");
+        redirectAttributes.addFlashAttribute("message", "Type successfully deleted");
         return "redirect:/admin/types";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    private String showUpdateForm(@PathVariable long id, Model model) {
+    private String showEditForm(@PathVariable long id, Model model) {
         TypeOfPairForm form = new TypeOfPairForm();
         form.setName(typeDao.getTypeOfPairById(id).getName());
 
@@ -61,15 +62,15 @@ public class TypesController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    private String processUpdateForm(@PathVariable long id, @Valid TypeOfPairForm form,
-                                     Errors errors, RedirectAttributes model) {
+    private String processEditForm(@PathVariable long id, @Valid TypeOfPairForm form,
+                                     Errors errors, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            model.addAttribute("id", id);
+            redirectAttributes.addAttribute("id", id);
             return "admin/types/edit";
         }
 
         typeDao.update(id, form.getName());
-        model.addFlashAttribute("message", "Type successfully updated");
+        redirectAttributes.addFlashAttribute("message", "Type successfully updated");
         return "redirect:/admin/types";
     }
 }

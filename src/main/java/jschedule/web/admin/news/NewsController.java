@@ -33,21 +33,21 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Valid NewsForm form, Errors errors, RedirectAttributes model) {
+    public String add(@Valid NewsForm form, Errors errors, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "admin/news/add";
         }
 
         newsDao.save(form.toNews());
 
-        model.addFlashAttribute("message", "news added");
+        redirectAttributes.addFlashAttribute("message", "news added");
         return "redirect:/admin/news";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String delete(@PathVariable long id, RedirectAttributes model) {
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
         newsDao.delete(id);
-        model.addFlashAttribute("message", "news deleted");
+        redirectAttributes.addFlashAttribute("message", "news deleted");
         return "redirect:/admin/news";
     }
 }

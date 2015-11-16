@@ -32,20 +32,21 @@ public class TeachersController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String processTeacherForm(@Valid TeacherForm teacherForm, Errors errors, RedirectAttributes model) {
+    private String processTeacherForm(@Valid TeacherForm teacherForm, Errors errors,
+                                      RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "admin/teachers/add";
         }
 
         teacherDao.save(teacherForm.toTeacher());
-        model.addFlashAttribute("message", "Teacher added successfully");
+        redirectAttributes.addFlashAttribute("message", "Teacher added successfully");
         return "redirect:/admin/teachers";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    private String deleteTeacher(@PathVariable long id, RedirectAttributes model) {
+    private String deleteTeacher(@PathVariable long id, RedirectAttributes redirectAttributes) {
         teacherDao.delete(id);
-        model.addFlashAttribute("message", "Teacher deleted successfully");
+        redirectAttributes.addFlashAttribute("message", "Teacher deleted successfully");
         return "redirect:/admin/teachers";
     }
 
@@ -60,15 +61,15 @@ public class TeachersController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    private String showEditForm(@PathVariable long id, @Valid TeacherForm form,
-                                     Errors errors, RedirectAttributes model) {
+    private String processEdit(@PathVariable long id, @Valid TeacherForm form,
+                                     Errors errors, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            model.addAttribute("id", id);
+            redirectAttributes.addAttribute("id", id);
             return "admin/teachers/edit";
         }
 
         teacherDao.update(id, form.getName());
-        model.addFlashAttribute("message", "Teacher successfully updated");
+        redirectAttributes.addFlashAttribute("message", "Teacher successfully updated");
         return "redirect:/admin/teachers";
     }
 }

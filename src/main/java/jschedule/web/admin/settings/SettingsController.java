@@ -22,7 +22,8 @@ public class SettingsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String saveSettings(@Valid SettingsForm settingsForm, Errors errors, RedirectAttributes model) {
+    public String saveSettings(@Valid SettingsForm settingsForm, Errors errors,
+                               RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             return "admin/settings/index";
         }
@@ -30,7 +31,7 @@ public class SettingsController {
         Settings.setSettings(settingsForm.getStartWeek(), settingsForm.getFinalWeek(),
                 settingsForm.getDaysCount(), settingsForm.getSubgroupsInGroup());
 
-        model.addFlashAttribute("message", "new settings saved");
+        redirectAttributes.addFlashAttribute("message", "new settings saved");
         return "redirect:/admin/settings/";
     }
 }

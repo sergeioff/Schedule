@@ -26,7 +26,7 @@
         <tr th:each="subject : ${subjects}">
             <td th:text="${subject.name}">Name</td>
             <td th:text="${subject.teacher.name}">Teacher</td>
-            <td>Edit</td>
+            <td><a th:href="@{/admin/subjects/edit/} + ${subject.id}">Edit</a></td>
             <td><a th:href="@{/admin/subjects/delete/} + ${subject.id}">Delete</a></td>
         </tr>
         </tbody>
