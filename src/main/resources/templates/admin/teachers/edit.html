@@ -10,7 +10,7 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <h2 class="text-center">Add a new teacher</h2>
-    <form class="form-horizontal" th:object="${teacherForm}" method="post">
+    <form class="form-horizontal" th:object="${teacherForm}" method="post" th:action="@{/admin/teachers/edit/} + ${id}">
         <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
             <ul>
                 <li th:each="error : ${#fields.errors('*')}"

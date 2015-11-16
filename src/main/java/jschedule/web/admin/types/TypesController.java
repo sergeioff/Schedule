@@ -57,7 +57,7 @@ public class TypesController {
 
         model.addAttribute("typeOfPairForm", form);
         model.addAttribute("id", id);
-        return "admin/types/update";
+        return "admin/types/edit";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -65,7 +65,7 @@ public class TypesController {
                                      Errors errors, RedirectAttributes model) {
         if (errors.hasErrors()) {
             model.addAttribute("id", id);
-            return "admin/types/update";
+            return "admin/types/edit";
         }
 
         typeDao.update(id, form.getName());

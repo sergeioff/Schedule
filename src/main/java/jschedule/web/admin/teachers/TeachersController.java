@@ -48,4 +48,27 @@ public class TeachersController {
         model.addFlashAttribute("message", "Teacher deleted successfully");
         return "redirect:/admin/teachers";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    private String showEditForm(@PathVariable long id, Model model) {
+        TeacherForm form = new TeacherForm();
+        form.setName(teacherDao.getTeacherById(id).getName());
+
+        model.addAttribute("teacherForm", form);
+        model.addAttribute("id", id);
+        return "admin/teachers/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    private String showEditForm(@PathVariable long id, @Valid TeacherForm form,
+                                     Errors errors, RedirectAttributes model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("id", id);
+            return "admin/teachers/edit";
+        }
+
+        teacherDao.update(id, form.getName());
+        model.addFlashAttribute("message", "Teacher successfully updated");
+        return "redirect:/admin/teachers";
+    }
 }

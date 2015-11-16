@@ -24,7 +24,7 @@
         <tbody>
         <tr th:each="teacher : ${teachers}">
             <td th:text="${teacher.name}">Name</td>
-            <td>Edit</td>
+            <td><a th:href="@{/admin/teachers/edit/} + ${teacher.id}">Edit</a></td>
             <td><a th:href="@{/admin/teachers/delete/} + ${teacher.id}">Delete</a></td>
         </tr>
         </tbody>
