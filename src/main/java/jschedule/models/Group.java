@@ -1,28 +1,29 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Table(name = "Subjects")
-public class Subject {
+@Table(name = "Groups")
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
+    @Size(min = 2, max = 15)
     private String name;
 
-    @NotNull
-    @ManyToOne
-    private Teacher teacher;
+    @ManyToMany
+    private List<Subject> subjects;
 
-    public Subject() { }
+    public Group() { }
 
-    public Subject(String name, Teacher teacher) {
+    public Group(String name, List<Subject> subjects) {
         this.name = name;
-        this.teacher = teacher;
+        this.subjects = subjects;
     }
 
     public Long getId() {
@@ -41,11 +42,11 @@ public class Subject {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

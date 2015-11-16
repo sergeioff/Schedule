@@ -1,6 +1,6 @@
-package jschedule.web.admin.settings;
+package jschedule.web.admin;
 
-import jschedule.models.domain.Settings;
+import jschedule.models.Settings;
 import jschedule.models.forms.SettingsForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

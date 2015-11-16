@@ -1,7 +1,8 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -12,6 +13,7 @@ public class News {
     private Long id;
 
     @NotNull
+    @Size(min = 5, max = 250)
     private String content;
 
     @NotNull

@@ -1,24 +1,32 @@
-package jschedule.models.domain;
+package jschedule.models;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "TypesOfPair")
-public class TypeOfPair {
+@Table(name = "Subjects")
+public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 3, max = 30)
     private String name;
 
-    public TypeOfPair() { }
+    @NotNull
+    @ManyToOne
+    private Teacher teacher;
 
-    public TypeOfPair(String name) {
+    public Subject() { }
+
+    public Subject(String name, Teacher teacher) {
         this.name = name;
+        this.teacher = teacher;
     }
 
     public Long getId() {
@@ -35,5 +43,13 @@ public class TypeOfPair {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

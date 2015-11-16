@@ -1,7 +1,8 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Pairs")
@@ -15,15 +16,19 @@ public class Pair {
     private Group currentGroup;
 
     @NotNull
+    @Size(min = 1)
     private Integer subGroup;
 
     @NotNull
+    @Size(min = 1)
     private Integer week;
 
     @NotNull
+    @Size(min = 1)
     private Integer day;
 
     @NotNull
+    @Size(min = 1)
     private Integer numInDay;
 
     @NotNull
@@ -35,6 +40,7 @@ public class Pair {
     private TypeOfPair type;
 
     @NotNull
+    @Size(min = 1, max = 20)
     private String room;
 
     public Pair() { }

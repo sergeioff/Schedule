@@ -1,4 +1,4 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 public abstract class Settings {
     private static Integer startWeek = 1;

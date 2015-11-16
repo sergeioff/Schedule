@@ -25,7 +25,10 @@
         <tr th:each="teacher : ${teachers}">
             <td th:text="${teacher.name}">Name</td>
             <td><a th:href="@{/admin/teachers/edit/} + ${teacher.id}">Edit</a></td>
-            <td><a th:href="@{/admin/teachers/delete/} + ${teacher.id}">Delete</a></td>
+            <td><form th:action="@{/admin/teachers/delete}" method="POST">
+                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${teacher.id}"/>
+                <input type="submit" value="Delete"/>
+            </form></td>
         </tr>
         </tbody>
     </table>

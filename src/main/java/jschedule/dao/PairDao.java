@@ -1,6 +1,6 @@
 package jschedule.dao;
 
-import jschedule.models.domain.Pair;
+import jschedule.models.Pair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,6 +11,7 @@ import java.util.List;
 public interface PairDao extends JpaRepository<Pair, Long> {
     Pair getPairById(Long id);
     Pair save(Pair pair);
+    void delete(Pair pair);
 
     @Query("select p from Pair p")
     List<Pair> getAllPairs(Pair pair);

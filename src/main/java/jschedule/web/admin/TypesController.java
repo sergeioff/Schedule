@@ -1,11 +1,11 @@
-package jschedule.web.admin.types;
+package jschedule.web.admin;
 
 import jschedule.dao.TypeDao;
-import jschedule.models.forms.TypeOfPairForm;
+import jschedule.models.TypeOfPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,56 +20,56 @@ public class TypesController {
     private TypeDao typeDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    private String home(Model model) {
+    private String index(Model model) {
         model.addAttribute("types", typeDao.getAllTypes());
         return "admin/types/index";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    private String showAddTypeForm(Model model) {
-        model.addAttribute("typeOfPairForm", new TypeOfPairForm());
-        return "admin/types/add";
+    private String showForm(TypeOfPair typeOfPair, Model model) {
+        model.addAttribute("actionName", "Add a new type");
+        return "admin/types/form";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String addTypeOfPair(@Valid TypeOfPairForm typeOfPairForm, Errors errors,
-                                 RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            return "admin/types/add";
+    private String processForm(@Valid TypeOfPair typeOfPair, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("actionName", "Add a new type");
+            return "admin/types/form";
         }
 
-        typeDao.save(typeOfPairForm.toTypeOfPair());
+        typeDao.save(typeOfPair);
 
         redirectAttributes.addFlashAttribute("message", "Type successfully added");
         return "redirect:/admin/types";
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    private String deleteTypeOfPair(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        typeDao.delete(id);
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    private String deleteTypeOfPair(long deleteId, RedirectAttributes redirectAttributes) {
+        TypeOfPair typeOfPair = typeDao.getTypeOfPairById(deleteId);
+        typeDao.delete(typeOfPair);
         redirectAttributes.addFlashAttribute("message", "Type successfully deleted");
         return "redirect:/admin/types";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String showEditForm(@PathVariable long id, Model model) {
-        TypeOfPairForm form = new TypeOfPairForm();
-        form.setName(typeDao.getTypeOfPairById(id).getName());
-
-        model.addAttribute("typeOfPairForm", form);
-        model.addAttribute("id", id);
-        return "admin/types/edit";
+        model.addAttribute("actionName", "Edit type");
+        model.addAttribute("typeOfPair", typeDao.getTypeOfPairById(id));
+        return "admin/types/form";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    private String processEditForm(@PathVariable long id, @Valid TypeOfPairForm form,
-                                     Errors errors, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            redirectAttributes.addAttribute("id", id);
-            return "admin/types/edit";
+    private String processEditForm(@Valid TypeOfPair typeOfPair, BindingResult bindingResult,
+                                    Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("actionName", "Edit type");
+            return "admin/types/form";
         }
 
-        typeDao.update(id, form.getName());
+        typeDao.save(typeOfPair);
+
         redirectAttributes.addFlashAttribute("message", "Type successfully updated");
         return "redirect:/admin/types";
     }

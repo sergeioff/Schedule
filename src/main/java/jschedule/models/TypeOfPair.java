@@ -1,27 +1,24 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Groups")
-public class Group {
+@Table(name = "TypesOfPair")
+public class TypeOfPair {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
+    @Size(min = 1, max = 8)
     private String name;
 
-    @ManyToMany
-    private List<Subject> subjects;
+    public TypeOfPair() { }
 
-    public Group() { }
-
-    public Group(String name, List<Subject> subjects) {
+    public TypeOfPair(String name) {
         this.name = name;
-        this.subjects = subjects;
     }
 
     public Long getId() {
@@ -38,13 +35,5 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
     }
 }

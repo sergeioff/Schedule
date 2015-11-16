@@ -1,7 +1,8 @@
-package jschedule.models.domain;
+package jschedule.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Teachers")
@@ -11,6 +12,7 @@ public class Teacher {
     private Long id;
 
     @NotNull
+    @Size(min = 3, max = 15)
     private String name;
 
     public Teacher() { }

@@ -10,25 +10,22 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <div th:include="page :: adminMenu"></div>
-    <center><a th:href="@{/admin/types/add}" class="btn btn-success">Add Type</a></center>
+    <center><a th:href="@{/admin/groups/add}" class="btn btn-success">Add group</a></center>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="3" class="text-center">Types</th>
+            <th colspan="4" class="text-center">Groups</th>
         </tr>
         <tr>
-            <th>Type</th>
+            <th>Name</th>
             <th colspan="2">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="type : ${types}">
-            <td th:text="${type.name}">type</td>
-            <td><a th:href="@{/admin/types/edit/} + ${type.id}">Edit</a></td>
-            <td><form th:action="@{/admin/types/delete}" method="POST">
-                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${type.id}"/>
-                <input type="submit" value="Delete"/>
-            </form></td>
+        <tr th:each="group : ${groups}">
+            <td th:text="${group.name}">Name</td>
+            <td><a th:href="@{/admin/groups/edit/} + ${group.id}">Edit</a></td>
+            <td><a th:href="@{/admin/groups/delete/} + ${group.id}">Delete</a></td>
         </tr>
         </tbody>
     </table>
