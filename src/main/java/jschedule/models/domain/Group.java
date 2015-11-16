@@ -2,6 +2,7 @@ package jschedule.models.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "Groups")
@@ -13,10 +14,14 @@ public class Group {
     @NotNull
     private String name;
 
+    @ManyToMany
+    private List<Subject> subjects;
+
     public Group() { }
 
-    public Group(String name) {
+    public Group(String name, List<Subject> subjects) {
         this.name = name;
+        this.subjects = subjects;
     }
 
     public Long getId() {
@@ -33,5 +38,13 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

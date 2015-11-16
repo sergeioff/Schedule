@@ -10,6 +10,9 @@ import java.util.List;
 @Transactional
 public interface GroupDao extends JpaRepository<Group, Long> {
     Group getGroupById(Long id);
+
     @Query("select g from Group g")
     List<Group> getAllGroups();
+
+    Group save(Group group);
 }
