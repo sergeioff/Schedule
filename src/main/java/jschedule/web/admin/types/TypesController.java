@@ -49,4 +49,27 @@ public class TypesController {
         model.addFlashAttribute("message", "Type successfully deleted");
         return "redirect:/admin/types";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    private String showUpdateForm(@PathVariable long id, Model model) {
+        TypeOfPairForm form = new TypeOfPairForm();
+        form.setName(typeDao.getTypeOfPairById(id).getName());
+
+        model.addAttribute("typeOfPairForm", form);
+        model.addAttribute("id", id);
+        return "admin/types/update";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    private String processUpdateForm(@PathVariable long id, @Valid TypeOfPairForm form,
+                                     Errors errors, RedirectAttributes model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("id", id);
+            return "admin/types/update";
+        }
+
+        typeDao.update(id, form.getName());
+        model.addFlashAttribute("message", "Type successfully updated");
+        return "redirect:/admin/types";
+    }
 }
