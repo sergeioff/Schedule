@@ -45,20 +45,12 @@ public class SubjectsController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("actionName", "Add a new subject");
             model.addAttribute("teachers", teacherDao.getAllTeachers());
-            return "admin/subjects/add";
+            return "admin/subjects/form";
         }
 
         subjectDao.save(subject);
         redirectAttributes.addFlashAttribute("message", "Subject added successfully");
 
-        return "redirect:/admin/subjects";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteSubject(long deleteId, RedirectAttributes redirectAttributes) {
-        Subject subject = subjectDao.getSubjectById(deleteId);
-        subjectDao.delete(subject);
-        redirectAttributes.addFlashAttribute("message", "Subject deleted successfully");
         return "redirect:/admin/subjects";
     }
 
@@ -71,7 +63,7 @@ public class SubjectsController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    private String processEdit(@Valid Subject subject, BindingResult bindingResult,
+    private String processEditForm(@Valid Subject subject, BindingResult bindingResult,
                                Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("actionName", "Edit subject");
@@ -82,6 +74,14 @@ public class SubjectsController {
         subjectDao.save(subject);
 
         redirectAttributes.addFlashAttribute("message", "Subject successfully updated");
+        return "redirect:/admin/subjects";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteSubject(long deleteId, RedirectAttributes redirectAttributes) {
+        Subject subject = subjectDao.getSubjectById(deleteId);
+        subjectDao.delete(subject);
+        redirectAttributes.addFlashAttribute("message", "Subject deleted successfully");
         return "redirect:/admin/subjects";
     }
 }

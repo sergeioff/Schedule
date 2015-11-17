@@ -24,8 +24,11 @@
         <tbody>
         <tr th:each="newsItem : ${news}">
             <td th:text="${newsItem.content}">content</td>
-            <td>Edit</td>
-            <td><a th:href="@{/admin/news/delete/} + ${newsItem.id}">Delete</a></td>
+            <td><a th:href="@{/admin/news/edit/} + ${newsItem.id}">Edit</a></td>
+            <td><form th:action="@{/admin/news/delete}" method="POST">
+                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${newsItem.id}"/>
+                <input type="submit" value="Delete"/>
+            </form></td>
         </tr>
         </tbody>
     </table>

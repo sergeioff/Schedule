@@ -33,17 +33,19 @@ public class GroupsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showAddGroupForm(Group group, Model model) {
+    public String showForm(Group group, Model model) {
+        model.addAttribute("actionName", "Add a new group");
         model.addAttribute("subjectsList", subjectDao.getAllSubjects());
-        return "admin/groups/add";
+        return "admin/groups/form";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddGroup(@Valid Group group, BindingResult bindingResult,
                                   Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("actionName", "Add a new group");
             model.addAttribute("subjectsList", subjectDao.getAllSubjects());
-            return "admin/groups/add";
+            return "admin/groups/form";
         }
 
         groupDao.save(group);
@@ -53,22 +55,33 @@ public class GroupsController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String showEditForm(@PathVariable long id, Model model) {
+        model.addAttribute("actionName", "Edit group");
         model.addAttribute("group", groupDao.getGroupById(id));
         model.addAttribute("subjectsList", subjectDao.getAllSubjects());
-        return "admin/groups/edit";
+        return "admin/groups/form";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String updateGroup(@Valid Group group, BindingResult bindingResult,
                               Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("actionName", "Edit group");
             model.addAttribute("subjectsList", subjectDao.getAllSubjects());
-            return "admin/groups/edit";
+            return "admin/groups/form";
         }
 
         groupDao.save(group);
 
         redirectAttributes.addFlashAttribute("message", "Group updated successfully");
+        return "redirect:/admin/groups";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteGroup(long deleteId, RedirectAttributes redirectAttributes) {
+        Group group = groupDao.getGroupById(deleteId);
+        groupDao.delete(group);
+
+        redirectAttributes.addFlashAttribute("message", "Group deleted successfully");
         return "redirect:/admin/groups";
     }
 }

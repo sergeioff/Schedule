@@ -19,7 +19,9 @@ public class News {
     @NotNull
     private Date date;
 
-    public News() {}
+    public News() {
+        date = new Date();
+    }
 
     public News(String content) {
         this.content = content;

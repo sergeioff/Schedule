@@ -23,9 +23,17 @@
         </thead>
         <tbody>
         <tr th:each="group : ${groups}">
-            <td th:text="${group.name}">Name</td>
+            <td>
+                <span th:text="${group.name}">Group name</span>
+                <ul>
+                    <li th:each="subject : ${group.subjects}" th:text="${subject.name} + '|' + ${subject.teacher.name}">Subject name</li>
+                </ul>
+            </td>
             <td><a th:href="@{/admin/groups/edit/} + ${group.id}">Edit</a></td>
-            <td><a th:href="@{/admin/groups/delete/} + ${group.id}">Delete</a></td>
+            <td><form th:action="@{/admin/groups/delete}" method="POST">
+                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${group.id}"/>
+                <input type="submit" value="Delete"/>
+            </form></td>
         </tr>
         </tbody>
     </table>
