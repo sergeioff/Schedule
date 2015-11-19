@@ -3,20 +3,20 @@ package jschedule.models.forms;
 public class SettingsForm {
     //TODO: add validation
     private Integer startWeek;
-
     private Integer finalWeek;
-
     private Integer daysCount;
-
     private Integer subgroupsInGroup;
+    private Integer pairsInDay;
 
     public SettingsForm() { }
 
-    public SettingsForm(Integer startWeek, Integer finalWeek, Integer daysCount, Integer subgroupsInGroup) {
+    public SettingsForm(Integer startWeek, Integer finalWeek, Integer daysCount, Integer subgroupsInGroup,
+                        Integer pairsInDay) {
         this.startWeek = startWeek;
         this.finalWeek = finalWeek;
         this.daysCount = daysCount;
         this.subgroupsInGroup = subgroupsInGroup;
+        this.pairsInDay = pairsInDay;
     }
 
     public Integer getStartWeek() {
@@ -49,5 +49,13 @@ public class SettingsForm {
 
     public void setSubgroupsInGroup(Integer subgroupsInGroup) {
         this.subgroupsInGroup = subgroupsInGroup;
+    }
+
+    public Integer getPairsInDay() {
+        return pairsInDay;
+    }
+
+    public void setPairsInDay(Integer pairsInDay) {
+        this.pairsInDay = pairsInDay;
     }
 }

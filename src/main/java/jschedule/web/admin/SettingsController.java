@@ -15,9 +15,9 @@ import javax.validation.Valid;
 @RequestMapping(value = "/admin/settings")
 public class SettingsController {
     @RequestMapping(method = RequestMethod.GET)
-    public String home(Model model) {
+    public String index(Model model) {
         model.addAttribute("settingsForm", new SettingsForm(Settings.getStartWeek(), Settings.getFinalWeek(),
-                Settings.getDaysCount(), Settings.getSubgroupsInGroup()));
+                Settings.getDaysCount(), Settings.getSubgroupsInGroup(), Settings.getPairsInDay()));
         return "admin/settings/index";
     }
 
@@ -29,7 +29,7 @@ public class SettingsController {
         }
 
         Settings.setSettings(settingsForm.getStartWeek(), settingsForm.getFinalWeek(),
-                settingsForm.getDaysCount(), settingsForm.getSubgroupsInGroup());
+                settingsForm.getDaysCount(), settingsForm.getSubgroupsInGroup(), settingsForm.getPairsInDay());
 
         redirectAttributes.addFlashAttribute("message", "new settings saved");
         return "redirect:/admin/settings/";

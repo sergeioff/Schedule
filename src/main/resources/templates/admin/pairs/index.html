@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<header th:include="page :: header"></header>
+<div class="center-block center-wrapper">
+    <div th:include="page :: adminMenu"></div>
+    <form class="form-inline text-center select-form" method="POST">
+        <div class="form-group">
+            <label for="groupSelect">Pairs for group:</label>
+            <select id="groupSelect" name="selectedGroup" class="form-control">
+                <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"
+                        th:selected="'selected'?${selectedGroup.id} eq ${group.id}:''">Group</option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-success" value="Select"/>
+    </form>
+    <center><a th:if="${selectedGroup.id}" th:href="@{/admin/schedule/addPairFor} + ${selectedGroup.id}" class="btn btn-success"
+               th:text="'Add pair for ' + ${selectedGroup.name}">Add pair for GroupName</a></center>
+    <center><h3 th:if="${selectGroupMessage}" th:text="${selectGroupMessage}">SelectGroupMessage</h3></center>
+    <table class="table" th:if="${pairs}">
+        <thead>
+        <tr>
+            <th colspan="8" class="text-center" th:text="'Pairs for group ' + ${selectedGroup.name}">Pairs for group name</th>
+        </tr>
+        <tr>
+            <th>Week</th>
+            <th>Day</th>
+            <th>#</th>
+            <th>Subgroup</th>
+            <th>Subject</th>
+            <th>Type</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.size(pairs)} lt 1"><td colspan="8" class="text-center"><b>No pairs</b></td></tr>
+        <tr th:each="pair : ${pairs}">
+            <td th:text="${pair.week}">Week</td>
+            <td th:text="${pair.day}">Day</td>
+            <td th:text="${pair.numberInDay}">#</td>
+            <td th:text="${pair.subGroup}">Subgroup</td>
+            <td th:text="${pair.subject.name} + '|' + ${pair.subject.teacher.name}">Subject</td>
+            <td th:text="${pair.type.name}">Type of pair</td>
+            <td><a th:href="@{/admin/schedule/editPair/} + ${pair.id}">Edit</a></td>
+            <td><form th:action="@{/admin/schedule/delete}" method="POST">
+                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${pair.id}"/>
+                <input type="submit" value="Delete"/>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

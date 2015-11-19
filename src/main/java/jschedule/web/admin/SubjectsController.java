@@ -17,25 +17,25 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/admin/subjects")
 public class SubjectsController {
-    private SubjectDao subjectDao;
-    private TeacherDao teacherDao;
+    private SubjectDao subjectsRepository;
+    private TeacherDao teachersRepository;
 
     @Autowired
-    public SubjectsController(SubjectDao subjectDao, TeacherDao teacherDao) {
-        this.subjectDao = subjectDao;
-        this.teacherDao = teacherDao;
+    public SubjectsController(SubjectDao subjectsRepository, TeacherDao teachersRepository) {
+        this.subjectsRepository = subjectsRepository;
+        this.teachersRepository = teachersRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("subjects", subjectDao.getAllSubjects());
+        model.addAttribute("subjects", subjectsRepository.getAllSubjects());
         return "admin/subjects/index";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Subject subject, Model model) {
         model.addAttribute("actionName", "Add a new subject");
-        model.addAttribute("teachers", teacherDao.getAllTeachers());
+        model.addAttribute("teachers", teachersRepository.getAllTeachers());
         return "admin/subjects/form";
     }
 
@@ -44,11 +44,11 @@ public class SubjectsController {
                                     Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("actionName", "Add a new subject");
-            model.addAttribute("teachers", teacherDao.getAllTeachers());
+            model.addAttribute("teachers", teachersRepository.getAllTeachers());
             return "admin/subjects/form";
         }
 
-        subjectDao.save(subject);
+        subjectsRepository.save(subject);
         redirectAttributes.addFlashAttribute("message", "Subject added successfully");
 
         return "redirect:/admin/subjects";
@@ -57,8 +57,8 @@ public class SubjectsController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String showEditForm(@PathVariable long id, Model model) {
         model.addAttribute("actionName", "Edit subject");
-        model.addAttribute("subject", subjectDao.getSubjectById(id));
-        model.addAttribute("teachers", teacherDao.getAllTeachers());
+        model.addAttribute("subject", subjectsRepository.getSubjectById(id));
+        model.addAttribute("teachers", teachersRepository.getAllTeachers());
         return "admin/subjects/form";
     }
 
@@ -67,11 +67,11 @@ public class SubjectsController {
                                Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("actionName", "Edit subject");
-            model.addAttribute("teachers", teacherDao.getAllTeachers());
+            model.addAttribute("teachers", teachersRepository.getAllTeachers());
             return "admin/subjects/form";
         }
 
-        subjectDao.save(subject);
+        subjectsRepository.save(subject);
 
         redirectAttributes.addFlashAttribute("message", "Subject successfully updated");
         return "redirect:/admin/subjects";
@@ -79,8 +79,8 @@ public class SubjectsController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteSubject(long deleteId, RedirectAttributes redirectAttributes) {
-        Subject subject = subjectDao.getSubjectById(deleteId);
-        subjectDao.delete(subject);
+        Subject subject = subjectsRepository.getSubjectById(deleteId);
+        subjectsRepository.delete(subject);
         redirectAttributes.addFlashAttribute("message", "Subject deleted successfully");
         return "redirect:/admin/subjects";
     }

@@ -16,13 +16,12 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(value = "/admin/news")
 public class NewsController {
-
     @Autowired
-    private NewsDao newsDao;
+    private NewsDao newsRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute("news", newsDao.getAllNews());
+    public String index(Model model) {
+        model.addAttribute("news", newsRepository.getAllNews());
         return "admin/news/index";
     }
 
@@ -40,7 +39,7 @@ public class NewsController {
             return "admin/news/form";
         }
 
-        newsDao.save(news);
+        newsRepository.save(news);
 
         redirectAttributes.addFlashAttribute("message", "News added successfully");
         return "redirect:/admin/news";
@@ -48,7 +47,7 @@ public class NewsController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String showEditForm(@PathVariable long id, Model model) {
-        News news = newsDao.getNewsById(id);
+        News news = newsRepository.getNewsById(id);
         model.addAttribute("actionName", "Edit news");
         model.addAttribute("news", news);
         return "admin/news/form";
@@ -62,7 +61,7 @@ public class NewsController {
             return "admin/news/form";
         }
 
-        newsDao.save(news);
+        newsRepository.save(news);
 
         redirectAttributes.addFlashAttribute("message", "News updated successfully");
         return "redirect:/admin/news";
@@ -70,8 +69,8 @@ public class NewsController {
 
     @RequestMapping(value = "/delete")
     public String delete(long deleteId, RedirectAttributes redirectAttributes) {
-        News news = newsDao.getNewsById(deleteId);
-        newsDao.delete(news);
+        News news = newsRepository.getNewsById(deleteId);
+        newsRepository.delete(news);
 
         redirectAttributes.addFlashAttribute("message", "News deleted successfully");
         return "redirect:/admin/news";

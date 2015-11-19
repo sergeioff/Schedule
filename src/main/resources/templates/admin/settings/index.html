@@ -41,6 +41,12 @@
                 <input type="number" class="form-control" th:field="*{subgroupsInGroup}"/>
             </div>
         </div>
+        <div th:class="${#fields.hasErrors('pairsInDay')}? 'form-group has-error': 'form-group'">
+            <label th:for="pairsInDay" class="col-sm-4 control-label">pairsInDay</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" th:field="*{pairsInDay}"/>
+            </div>
+        </div>
         <div class="form-buttons text-center">
             <input type="submit" value="Save" class="btn btn-success"/>
         </div>

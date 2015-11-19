@@ -22,7 +22,7 @@
         <b th:text="${message}"></b>
     </div>
     <center>
-        <a th:href="@{/admin}" th:class="${currentTab eq 'schedule'}? 'btn btn-default active': 'btn btn-default'">
+        <a th:href="@{/admin/schedule}" th:class="${currentTab eq 'schedule'}? 'btn btn-default active': 'btn btn-default'">
             Edit schedule</a>
         <a th:href="@{/admin/groups}" th:class="${currentTab eq 'groups'}? 'btn btn-default active': 'btn btn-default'">
             Edit groups</a>

@@ -17,11 +17,11 @@ import javax.validation.Valid;
 @RequestMapping("/admin/types")
 public class TypesController {
     @Autowired
-    private TypeDao typeDao;
+    private TypeDao typesRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
-        model.addAttribute("types", typeDao.getAllTypes());
+        model.addAttribute("types", typesRepository.getAllTypes());
         return "admin/types/index";
     }
 
@@ -39,7 +39,7 @@ public class TypesController {
             return "admin/types/form";
         }
 
-        typeDao.save(typeOfPair);
+        typesRepository.save(typeOfPair);
 
         redirectAttributes.addFlashAttribute("message", "Type successfully added");
         return "redirect:/admin/types";
@@ -47,8 +47,8 @@ public class TypesController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     private String deleteTypeOfPair(long deleteId, RedirectAttributes redirectAttributes) {
-        TypeOfPair typeOfPair = typeDao.getTypeOfPairById(deleteId);
-        typeDao.delete(typeOfPair);
+        TypeOfPair typeOfPair = typesRepository.getTypeOfPairById(deleteId);
+        typesRepository.delete(typeOfPair);
         redirectAttributes.addFlashAttribute("message", "Type successfully deleted");
         return "redirect:/admin/types";
     }
@@ -56,7 +56,7 @@ public class TypesController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String showEditForm(@PathVariable long id, Model model) {
         model.addAttribute("actionName", "Edit type");
-        model.addAttribute("typeOfPair", typeDao.getTypeOfPairById(id));
+        model.addAttribute("typeOfPair", typesRepository.getTypeOfPairById(id));
         return "admin/types/form";
     }
 
@@ -68,7 +68,7 @@ public class TypesController {
             return "admin/types/form";
         }
 
-        typeDao.save(typeOfPair);
+        typesRepository.save(typeOfPair);
 
         redirectAttributes.addFlashAttribute("message", "Type successfully updated");
         return "redirect:/admin/types";

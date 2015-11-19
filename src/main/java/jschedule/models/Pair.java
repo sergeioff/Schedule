@@ -1,6 +1,7 @@
 package jschedule.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,20 +17,20 @@ public class Pair {
     private Group currentGroup;
 
     @NotNull
-    @Size(min = 1)
-    private Integer subGroup;
+    @Min(0)
+    private Long subGroup;
 
     @NotNull
-    @Size(min = 1)
-    private Integer week;
+    @Min(1)
+    private Long week;
 
     @NotNull
-    @Size(min = 1)
-    private Integer day;
+    @Min(1)
+    private Long day;
 
     @NotNull
-    @Size(min = 1)
-    private Integer numInDay;
+    @Min(1)
+    private Long numberInDay;
 
     @NotNull
     @ManyToOne
@@ -45,12 +46,12 @@ public class Pair {
 
     public Pair() { }
 
-    public Pair(Group currentGroup, Integer subGroup, Integer week, Integer day, Integer numInDay, Subject subject, TypeOfPair type, String room) {
+    public Pair(Group currentGroup, Long subGroup, Long week, Long day, Long numberInDay, Subject subject, TypeOfPair type, String room) {
         this.currentGroup = currentGroup;
         this.subGroup = subGroup;
         this.week = week;
         this.day = day;
-        this.numInDay = numInDay;
+        this.numberInDay = numberInDay;
         this.subject = subject;
         this.type = type;
         this.room = room;
@@ -72,36 +73,36 @@ public class Pair {
         this.currentGroup = currentGroup;
     }
 
-    public Integer getSubGroup() {
+    public Long getSubGroup() {
         return subGroup;
     }
 
-    public void setSubGroup(Integer subGroup) {
+    public void setSubGroup(Long subGroup) {
         this.subGroup = subGroup;
     }
 
-    public Integer getWeek() {
+    public Long getWeek() {
         return week;
     }
 
-    public void setWeek(Integer week) {
+    public void setWeek(Long week) {
         this.week = week;
     }
 
-    public Integer getDay() {
+    public Long getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(Long day) {
         this.day = day;
     }
 
-    public Integer getNumInDay() {
-        return numInDay;
+    public Long getNumberInDay() {
+        return numberInDay;
     }
 
-    public void setNumInDay(Integer numInDay) {
-        this.numInDay = numInDay;
+    public void setNumberInDay(Long numberInDay) {
+        this.numberInDay = numberInDay;
     }
 
     public Subject getSubject() {

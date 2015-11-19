@@ -17,11 +17,11 @@ import javax.validation.Valid;
 @RequestMapping("/admin/teachers")
 public class TeachersController {
     @Autowired
-    private TeacherDao teacherDao;
+    private TeacherDao teachersRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
-        model.addAttribute("teachers", teacherDao.getAllTeachers());
+        model.addAttribute("teachers", teachersRepository.getAllTeachers());
         return "admin/teachers/index";
     }
 
@@ -39,15 +39,15 @@ public class TeachersController {
             return "admin/teachers/form";
         }
 
-        teacherDao.save(teacher);
+        teachersRepository.save(teacher);
         redirectAttributes.addFlashAttribute("message", "Teacher added successfully");
         return "redirect:/admin/teachers";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     private String deleteTeacher(long deleteId, RedirectAttributes redirectAttributes) {
-        Teacher teacher = teacherDao.getTeacherById(deleteId);
-        teacherDao.delete(teacher);
+        Teacher teacher = teachersRepository.getTeacherById(deleteId);
+        teachersRepository.delete(teacher);
         redirectAttributes.addFlashAttribute("message", "Teacher deleted successfully");
         return "redirect:/admin/teachers";
     }
@@ -55,7 +55,7 @@ public class TeachersController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String showEditForm(@PathVariable long id, Model model) {
         model.addAttribute("actionName", "Edit teacher");
-        model.addAttribute("teacher", teacherDao.getTeacherById(id));
+        model.addAttribute("teacher", teachersRepository.getTeacherById(id));
         return "admin/teachers/form";
     }
 
@@ -67,7 +67,7 @@ public class TeachersController {
             return "admin/teachers/form";
         }
 
-        teacherDao.save(teacher);
+        teachersRepository.save(teacher);
 
         redirectAttributes.addFlashAttribute("message", "Teacher successfully updated");
         return "redirect:/admin/teachers";
