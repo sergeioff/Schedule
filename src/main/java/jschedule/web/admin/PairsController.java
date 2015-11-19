@@ -78,6 +78,7 @@ public class PairsController {
             model.addAttribute("currentGroup", pair.getCurrentGroup());
             fillModelBySettings(model);
             model.addAttribute("types", typesRepository.getAllTypes());
+
             return "admin/pairs/form";
         }
 

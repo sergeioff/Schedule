@@ -23,7 +23,7 @@ public interface PairDao extends JpaRepository<Pair, Long> {
 
     @Query("select p from Pair p where p.currentGroup=:group_id and p.week=:week and p.day=:day and " +
             "(p.subGroup=:subgroup or p.subGroup = 0) order by p.numberInDay")
-    List<Pair> getPairsByGroupSubgroupAndWeekAndDay(@Param("group_id") long group_id,
+    List<Pair> getPairsByGroupSubgroupWeekAndDay(@Param("group_id") Group group_id,
                                                     @Param("subgroup") long subgroup,
                                                     @Param("week") long week,
                                                     @Param("day") long day);
