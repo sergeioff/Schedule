@@ -2,14 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title th:text="#{titles.admin.teachers}">Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
 <body>
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
-    <h2 class="text-center" th:text="${actionName}">Action name</h2>
+    <h2 th:if="${action} eq 'add'" th:text="#{admin.addTeacher}" class="text-center">Add</h2>
+    <h2 th:if="${action} eq 'edit'" th:text="#{admin.editTeacher}" class="text-center">Edit</h2>
     <form class="form-horizontal" th:object="${teacher}" method="post">
         <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
             <ul>
@@ -18,14 +19,14 @@
             </ul>
         </div>
         <div th:class="${#fields.hasErrors('name')}? 'form-group has-error': 'form-group'">
-            <label th:for="name" class="col-sm-4 control-label">Name</label>
+            <label th:for="name" class="col-sm-4 control-label" th:text="#{admin.teacherName}">Name</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Name"/>
+                <input type="text" class="form-control" th:field="*{name}" th:placeholder="#{admin.teacherName}"/>
             </div>
         </div>
         <div class="form-buttons text-center">
-            <a th:href="@{/admin/teachers}" class="btn btn-danger">Cancel</a>
-            <input type="submit" value="Add" class="btn btn-success"/>
+            <a th:href="@{/admin/teachers}" th:text="#{admin.cancel}" class="btn btn-danger">Cancel</a>
+            <input type="submit" th:value="#{admin.save}" class="btn btn-success"/>
         </div>
     </form>
 </div>

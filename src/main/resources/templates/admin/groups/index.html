@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title></title>
+    <title th:text="#{titles.admin.groups}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
@@ -10,15 +10,15 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <div th:include="page :: adminMenu"></div>
-    <center><a th:href="@{/admin/groups/add}" class="btn btn-success">Add group</a></center>
+    <center><a th:href="@{/admin/groups/add}" class="btn btn-success" th:text="#{admin.addGroup}">Add group</a></center>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="4" class="text-center">Groups</th>
+            <th colspan="4" class="text-center" th:text="#{groups}">Groups</th>
         </tr>
         <tr>
-            <th>Name</th>
-            <th colspan="2">Actions</th>
+            <th th:text="#{admin.name}">Name</th>
+            <th colspan="2" th:text="#{admin.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
                     <li th:each="subject : ${group.subjects}" th:text="${subject.name} + '|' + ${subject.teacher.name}">Subject name</li>
                 </ul>
             </td>
-            <td><a th:href="@{/admin/groups/edit/} + ${group.id}">Edit</a></td>
+            <td><a th:href="@{/admin/groups/edit/} + ${group.id}" th:text="#{admin.edit}">Edit</a></td>
             <td><form th:action="@{/admin/groups/delete}" method="POST">
                 <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${group.id}"/>
-                <input type="submit" value="Delete"/>
+                <input type="submit" th:value="#{admin.delete}"/>
             </form></td>
         </tr>
         </tbody>

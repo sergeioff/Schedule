@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title></title>
+    <title th:text="#{titles.admin.subjects}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
@@ -10,26 +10,26 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <div th:include="page :: adminMenu"></div>
-    <center><a th:href="@{/admin/subjects/add}" class="btn btn-success">Add subject</a></center>
+    <center><a th:href="@{/admin/subjects/add}" class="btn btn-success" th:text="#{admin.addSubject}">Add subject</a></center>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="4" class="text-center">Subjects</th>
+            <th colspan="4" class="text-center" th:text="#{admin.subjects}">Subjects</th>
         </tr>
         <tr>
-            <th>Name</th>
-            <th>Teacher</th>
-            <th colspan="2">Actions</th>
+            <th th:text="#{admin.name}">Name</th>
+            <th th:text="#{admin.teacher}">Teacher</th>
+            <th colspan="2" th:text="#{admin.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="subject : ${subjects}">
             <td th:text="${subject.name}">Name</td>
             <td th:text="${subject.teacher.name}">Teacher</td>
-            <td><a th:href="@{/admin/subjects/edit/} + ${subject.id}">Edit</a></td>
+            <td><a th:href="@{/admin/subjects/edit/} + ${subject.id}" th:text="#{admin.edit}">Edit</a></td>
             <td><form th:action="@{/admin/subjects/delete}" method="POST">
                 <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${subject.id}"/>
-                <input type="submit" value="Delete"/>
+                <input type="submit" th:value="#{admin.delete}"/>
             </form></td>
         </tr>
         </tbody>

@@ -9,8 +9,10 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <!--<li><a th:href="@{/teachers}">For teachers</a></li>-->
-                    <li><a th:href="@{/admin}">admin</a></li>
+                    <li><a th:href="@{/forStudents}" th:text="#{mainMenu.forStudents}">For students</a></li>
+                    <li><a th:href="@{/admin}">Admin</a></li>
+                    <li><a th:href="@{?lang=ru}">Russian</a></li>
+                    <li><a th:href="@{?lang=en}">English</a></li>
                 </ul>
             </div>
         </div>
@@ -18,25 +20,43 @@
 </header>
 
 <div th:fragment="adminMenu" class="center-block select-form">
-    <div class="alert alert-success" th:if="${message}">
-        <b th:text="${message}"></b>
+    <div class="alert alert-success" th:if="${message}" th:switch="${message}">
+        <b th:case="'typeAdded'" th:text="#{admin.messages.typeAdded}">Type added</b>
+        <b th:case="'typeUpdated'" th:text="#{admin.messages.typeUpdated}">Type updated</b>
+        <b th:case="'typeDeleted'" th:text="#{admin.messages.typeDeleted}">Type deleted</b>
+        <b th:case="'teacherAdded'" th:text="#{admin.messages.teacherAdded}">Teacher added</b>
+        <b th:case="'teacherUpdated'" th:text="#{admin.messages.teacherUpdated}">Teacher updated</b>
+        <b th:case="'teacherDeleted'" th:text="#{admin.messages.teacherDeleted}">Teacher deleted</b>
+        <b th:case="'subjectAdded'" th:text="#{admin.messages.subjectAdded}">Subject added</b>
+        <b th:case="'subjectUpdated'" th:text="#{admin.messages.subjectUpdated}">Subject updated</b>
+        <b th:case="'subjectDeleted'" th:text="#{admin.messages.subjectDeleted}">Subject deleted</b>
+        <b th:case="'settingsUpdated'" th:text="#{admin.messages.settingsUpdated}">Settings updated</b>
+        <b th:case="'pairAdded'" th:text="#{admin.messages.pairAdded}">Pair added</b>
+        <b th:case="'pairUpdated'" th:text="#{admin.messages.pairUpdated}">Pair updated</b>
+        <b th:case="'pairDeleted'" th:text="#{admin.messages.pairDeleted}">Pair deleted</b>
+        <b th:case="'newsAdded'" th:text="#{admin.messages.newsAdded}">News added</b>
+        <b th:case="'newsUpdated'" th:text="#{admin.messages.newsUpdated}">News updated</b>
+        <b th:case="'newsDeleted'" th:text="#{admin.messages.newsDeleted}">News deleted</b>
+        <b th:case="'groupAdded'" th:text="#{admin.messages.groupAdded}">Group added</b>
+        <b th:case="'groupUpdated'" th:text="#{admin.messages.groupUpdated}">Group updated</b>
+        <b th:case="'groupDeleted'" th:text="#{admin.messages.groupDeleted}">Group deleted</b>
     </div>
     <center>
-        <a th:href="@{/admin/schedule}" th:class="${currentTab eq 'schedule'}? 'btn btn-default active': 'btn btn-default'">
+        <a th:href="@{/admin/schedule}" th:text="#{admin.menu.editSchedule}" th:class="${currentTab eq 'schedule'}? 'btn btn-default active': 'btn btn-default'">
             Edit schedule</a>
-        <a th:href="@{/admin/groups}" th:class="${currentTab eq 'groups'}? 'btn btn-default active': 'btn btn-default'">
+        <a th:href="@{/admin/groups}" th:text="#{admin.menu.editGroups}" th:class="${currentTab eq 'groups'}? 'btn btn-default active': 'btn btn-default'">
             Edit groups</a>
-        <a th:href="@{/admin/subjects}" th:class="${currentTab eq 'subjects'? 'btn btn-default active': 'btn btn-default'}">
+        <a th:href="@{/admin/subjects}" th:text="#{admin.menu.editSubjects}" th:class="${currentTab eq 'subjects'? 'btn btn-default active': 'btn btn-default'}">
             Edit subjects</a>
-        <a th:href="@{/admin/teachers}" th:class="${currentTab eq 'teachers'? 'btn btn-default active': 'btn btn-default'}">
+        <a th:href="@{/admin/teachers}" th:text="#{admin.menu.editTeachers}" th:class="${currentTab eq 'teachers'? 'btn btn-default active': 'btn btn-default'}">
             Edit teachers</a>
-        <a th:href="@{/admin/types}" th:class="${currentTab eq 'types'? 'btn btn-default active': 'btn btn-default'}">
+        <a th:href="@{/admin/types}" th:text="#{admin.menu.editTypes}" th:class="${currentTab eq 'types'? 'btn btn-default active': 'btn btn-default'}">
             Edit types
         </a>
-        <a th:href="@{/admin/settings}" th:class="${currentTab eq 'settings'? 'btn btn-default active': 'btn btn-default'}">
+        <a th:href="@{/admin/settings}" th:text="#{admin.menu.editSettings}" th:class="${currentTab eq 'settings'? 'btn btn-default active': 'btn btn-default'}">
             Edit settings
         </a>
-        <a th:href="@{/admin/news}" th:class="${currentTab eq 'news'? 'btn btn-default active': 'btn btn-default'}">
+        <a th:href="@{/admin/news}" th:text="#{admin.menu.editNews}" th:class="${currentTab eq 'news'? 'btn btn-default active': 'btn btn-default'}">
             Edit news
         </a>
         <br/><br/>

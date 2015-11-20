@@ -5,6 +5,8 @@ table, center {
 
 .table-student {
     min-width: 335px;
+    background-color: rgba(225, 225, 225, 0.4);
+    border-radius: 20px;
 }
 
 .table-teacher {

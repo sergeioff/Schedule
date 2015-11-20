@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title>Admin|Settings</title>
+    <title th:text="#{titles.admin.settings}">Admin|Settings</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
@@ -10,6 +10,7 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <div th:include="page :: adminMenu"></div>
+    <h2 class="text-center" th:text="#{admin.settings}">Settings</h2>
     <form class="form-horizontal" th:object="${settingsForm}" method="post">
         <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
             <ul>
@@ -18,37 +19,37 @@
             </ul>
         </div>
         <div th:class="${#fields.hasErrors('startWeek')}? 'form-group has-error': 'form-group'">
-            <label th:for="startWeek" class="col-sm-4 control-label">startWeek</label>
+            <label th:for="startWeek" class="col-sm-4 control-label" th:text="#{admin.startWeek}">startWeek</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" th:field="*{startWeek}"/>
+                <input type="number" class="form-control" th:field="*{startWeek}" min="1"/>
             </div>
         </div>
         <div th:class="${#fields.hasErrors('finalWeek')}? 'form-group has-error': 'form-group'">
-            <label th:for="finalWeek" class="col-sm-4 control-label">finalWeek</label>
+            <label th:for="finalWeek" class="col-sm-4 control-label" th:text="#{admin.finalWeek}">finalWeek</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" th:field="*{finalWeek}"/>
+                <input type="number" class="form-control" th:field="*{finalWeek}" min="1"/>
             </div>
         </div>
         <div th:class="${#fields.hasErrors('daysCount')}? 'form-group has-error': 'form-group'">
-            <label th:for="daysCount" class="col-sm-4 control-label">daysCount</label>
+            <label th:for="daysCount" class="col-sm-4 control-label" th:text="#{admin.daysCount}">daysCount</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" th:field="*{daysCount}"/>
+                <input type="number" class="form-control" th:field="*{daysCount}" min="1" max="7"/>
             </div>
         </div>
         <div th:class="${#fields.hasErrors('subgroupsInGroup')}? 'form-group has-error': 'form-group'">
-            <label th:for="subgroupsInGroup" class="col-sm-4 control-label">subgroupsInGroup</label>
+            <label th:for="subgroupsInGroup" class="col-sm-4 control-label" th:text="#{admin.subgroupsInGroup}">subgroupsInGroup</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" th:field="*{subgroupsInGroup}"/>
+                <input type="number" class="form-control" th:field="*{subgroupsInGroup}" min="1"/>
             </div>
         </div>
         <div th:class="${#fields.hasErrors('pairsInDay')}? 'form-group has-error': 'form-group'">
-            <label th:for="pairsInDay" class="col-sm-4 control-label">pairsInDay</label>
+            <label th:for="pairsInDay" class="col-sm-4 control-label" th:text="#{admin.pairsInDay}">pairsInDay</label>
             <div class="col-sm-5">
-                <input type="number" class="form-control" th:field="*{pairsInDay}"/>
+                <input type="number" class="form-control" th:field="*{pairsInDay}" min="1"/>
             </div>
         </div>
         <div class="form-buttons text-center">
-            <input type="submit" value="Save" class="btn btn-success"/>
+            <input type="submit" th:value="#{admin.save}" class="btn btn-success"/>
         </div>
     </form>
 </div>

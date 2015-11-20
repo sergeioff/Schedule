@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta charset="UTF-8"/>
-    <title>Schedule</title>
+    <title th:text="#{titles.forStudents}">Schedule</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
@@ -10,46 +10,47 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper">
     <div class="center-block select-form">
-        <form class="form-inline text-center">
+        <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forStudents}" method="POST">
             <div class="form-group">
-                <label for="groupSelect">Group:</label>
-                <select id="groupSelect" name="selectedGroup" class="form-control">
+                <label for="groupSelect" th:text="#{group}">Group:</label>
+                <select id="groupSelect" th:field="*{selectedGroup}" name="selectedGroup" class="form-control">
                     <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}">Group</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="subGroupSelect">Subgroup:</label>
-                <select id="subGroupSelect" name="selectedSubgroup" class="form-control">
+                <label for="subGroupSelect" th:text="#{subgroup}">Subgroup:</label>
+                <select id="subGroupSelect" th:field="*{selectedSubgroup}" name="selectedSubgroup" class="form-control">
                     <option th:each="subgroup : ${#numbers.sequence(1, subgroupsCount)}"
                             th:value="${subgroup}" th:text="${subgroup}">Subgroup</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="weekSelect">Week:</label>
-                <select id="weekSelect" name="selectedWeek" class="form-control">
+                <label for="weekSelect" th:text="#{week}">Week:</label>
+                <select id="weekSelect" th:field="*{selectedWeek}" name="selectedWeek" class="form-control">
                     <option th:each="week : ${#numbers.sequence(startWeek, finalWeek)}"
                             th:value="${week}" th:text="${week}">Week</option>
                 </select>
             </div>
-            <input type="submit" class="btn btn-success" value="Select" />
+            <input type="submit" class="btn btn-success" th:value="#{select}" />
         </form>
     </div>
-
+    <div>
+        <h3 class="text-center" th:if="${schedule eq null}" th:text="#{selectGroupMessage}">Select a group</h3>
         <table th:each="day : ${schedule}" class="table table-responsive table-student">
             <thead>
             <tr>
-                <th colspan="5" class="text-center" th:text="${day.key}"><h3>Day</h3></th>
+                <th colspan="5" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
             </tr>
-            <tr>
+            <tr th:if="${#lists.size(day.value)} gt 0">
                 <th>#</th>
-                <th>Subject</th>
-                <th>Type</th>
-                <th class="hidden-xs">Teacher</th>
-                <th>Room</th>
+                <th th:text="#{subject}">Subject</th>
+                <th th:text="#{type}">Type</th>
+                <th th:text="#{teacher}" class="hidden-xs">Teacher</th>
+                <th th:text="#{room}">Room</th>
             </tr>
+            <tr th:if="${#lists.size(day.value)} lt 1"><td colspan="8" class="text-center"><h4 th:text="#{noPairs}">No pairs</h4></td></tr>
             </thead>
             <tbody>
-            <tr th:if="${#lists.size(day.value)} lt 1"><td colspan="8" class="text-center"><b>No pairs</b></td></tr>
             <tr th:each="pair : ${day.value}" th:if="${pair != null}">
                 <td th:text="${pair.numberInDay}"></td>
                 <td th:text="${pair.subject.name}"></td>
@@ -60,5 +61,6 @@
             </tbody>
         </table>
     </div>
+</div>
 </body>
 </html>
