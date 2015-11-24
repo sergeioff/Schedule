@@ -11,8 +11,10 @@
                 <ul class="nav navbar-nav">
                     <li><a th:href="@{/forStudents}" th:text="#{mainMenu.forStudents}">For students</a></li>
                     <li><a th:href="@{/admin}">Admin</a></li>
-                    <li><a th:href="@{?lang=ru}">Russian</a></li>
-                    <li><a th:href="@{?lang=en}">English</a></li>
+                </ul>
+                <ul class="nav navbar-nav languageSelect">
+                    <li><a th:href="@{?lang=en}"><img class="languageImg" th:src="@{/img/en.gif}" alt="English"/></a></li>
+                    <li><a th:href="@{?lang=ru}"><img class="languageImg" th:src="@{/img/ru.gif}" alt="Русский"/></a></li>
                 </ul>
             </div>
         </div>
@@ -41,26 +43,32 @@
         <b th:case="'groupUpdated'" th:text="#{admin.messages.groupUpdated}">Group updated</b>
         <b th:case="'groupDeleted'" th:text="#{admin.messages.groupDeleted}">Group deleted</b>
     </div>
-    <center>
-        <a th:href="@{/admin/schedule}" th:text="#{admin.menu.editSchedule}" th:class="${currentTab eq 'schedule'}? 'btn btn-default active': 'btn btn-default'">
-            Edit schedule</a>
-        <a th:href="@{/admin/groups}" th:text="#{admin.menu.editGroups}" th:class="${currentTab eq 'groups'}? 'btn btn-default active': 'btn btn-default'">
-            Edit groups</a>
-        <a th:href="@{/admin/subjects}" th:text="#{admin.menu.editSubjects}" th:class="${currentTab eq 'subjects'? 'btn btn-default active': 'btn btn-default'}">
-            Edit subjects</a>
-        <a th:href="@{/admin/teachers}" th:text="#{admin.menu.editTeachers}" th:class="${currentTab eq 'teachers'? 'btn btn-default active': 'btn btn-default'}">
-            Edit teachers</a>
-        <a th:href="@{/admin/types}" th:text="#{admin.menu.editTypes}" th:class="${currentTab eq 'types'? 'btn btn-default active': 'btn btn-default'}">
-            Edit types
-        </a>
-        <a th:href="@{/admin/settings}" th:text="#{admin.menu.editSettings}" th:class="${currentTab eq 'settings'? 'btn btn-default active': 'btn btn-default'}">
-            Edit settings
-        </a>
-        <a th:href="@{/admin/news}" th:text="#{admin.menu.editNews}" th:class="${currentTab eq 'news'? 'btn btn-default active': 'btn btn-default'}">
-            Edit news
-        </a>
-        <br/><br/>
-    </center>
+    <div class="adminMenu">
+        <ul class="nav nav-tabs">
+            <li th:class="${currentTab eq 'news'? 'active': ''}"><a th:href="@{/admin/news}" th:text="#{admin.menu.editNews}">
+                Edit news</a></li>
+            <li th:class="${currentTab eq 'schedule'}? 'active': ''"><a th:href="@{/admin/schedule}" th:text="#{admin.menu.editSchedule}">
+                Edit schedule</a></li>
+            <li th:class="${currentTab eq 'groups'}? 'active': ''"><a th:href="@{/admin/groups}" th:text="#{admin.menu.editGroups}">
+                Edit groups</a></li>
+            <li th:class="${currentTab eq 'subjects'? 'active': ''}"><a th:href="@{/admin/subjects}" th:text="#{admin.menu.editSubjects}">
+                Edit subjects</a></li>
+            <li th:class="${currentTab eq 'teachers'? 'active': ''}"><a th:href="@{/admin/teachers}" th:text="#{admin.menu.editTeachers}">
+                Edit teachers</a></li>
+            <li th:class="${currentTab eq 'types'? 'active': ''}"><a th:href="@{/admin/types}" th:text="#{admin.menu.editTypes}">
+                Edit types</a></li>
+            <li th:class="${currentTab eq 'settings'? 'active': ''}"><a th:href="@{/admin/settings}" th:text="#{admin.menu.editSettings}">
+                Edit settings</a></li>
+        </ul>
+    </div>
 </div>
+<footer th:fragment="footer">
+    <nav class="navbar navbar-default footer">
+        <p class="center-block center-wrapper copy">
+            <a href="http://www.github.com/sergeioff">SergeiOFF</a>
+            <i> © 2015</i>
+        </p>
+    </nav>
+</footer>
 </body>
 </html>

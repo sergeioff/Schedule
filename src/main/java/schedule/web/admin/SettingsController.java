@@ -18,6 +18,7 @@ public class SettingsController {
     public String index(Model model) {
         model.addAttribute("settingsForm", new SettingsForm(Settings.getStartWeek(), Settings.getFinalWeek(),
                 Settings.getDaysCount(), Settings.getSubgroupsInGroup(), Settings.getPairsInDay()));
+        model.addAttribute("currentTab", "settings");
         return "admin/settings/index";
     }
 

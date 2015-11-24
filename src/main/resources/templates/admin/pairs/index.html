@@ -8,7 +8,7 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <div th:include="page :: adminMenu"></div>
     <form class="form-inline text-center select-form" method="POST">
         <div class="form-group">
@@ -20,13 +20,15 @@
         </div>
         <input type="submit" class="btn btn-success" th:value="#{select}"/>
     </form>
-    <center><a th:if="${selectedGroup.id}" th:href="@{/admin/schedule/addPairFor} + ${selectedGroup.id}" class="btn btn-success"
-               th:text="#{admin.addPairFor} + ' ' + ${selectedGroup.name}">Add pair for GroupName</a></center>
-    <center><h3 th:if="${selectGroupMessage}" th:text="#{selectGroupMessage}">SelectGroupMessage</h3></center>
+    <div class="text-center">
+    <a th:if="${selectedGroup.id}" th:href="@{/admin/schedule/addPairFor} + ${selectedGroup.id}" class="btn btn-success"
+               th:text="#{admin.addPairFor} + ' ' + ${selectedGroup.name}">Add pair for GroupName</a>
+    <h3 th:if="${selectGroupMessage}" th:text="#{selectGroupMessage}">SelectGroupMessage</h3>
+    </div>
     <table class="table" th:if="${pairs}">
         <thead>
         <tr>
-            <th colspan="9" class="text-center" th:text="#{admin.pairsForGroup} + ${selectedGroup.name}">Pairs for group name</th>
+            <th colspan="8" class="text-center"><h3 th:text="#{admin.pairsForGroup} + ' ' + ${selectedGroup.name}">Pairs for group name</h3></th>
         </tr>
         <tr>
             <th th:text="#{week}">Week</th>
@@ -36,7 +38,7 @@
             <th th:text="#{subject}">Subject</th>
             <th th:text="#{type}">Type</th>
             <th th:text="#{room}">room</th>
-            <th colspan="2" th:text="#{admin.actions}">Actions</th>
+            <th class="text-right" th:text="#{admin.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -49,14 +51,15 @@
             <td th:text="${pair.subject.name} + '|' + ${pair.subject.teacher.name}">Subject</td>
             <td th:text="${pair.type.name}">Type of pair</td>
             <td th:text="${pair.room}">Room</td>
-            <td><a th:href="@{/admin/schedule/editPair/} + ${pair.id}" th:text="#{admin.edit}">Edit</a></td>
-            <td><form th:action="@{/admin/schedule/delete}" method="POST">
+            <td class="text-right"><a th:href="@{/admin/schedule/editPair/} + ${pair.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+            <form class="deleteForm" th:action="@{/admin/schedule/delete}" method="POST">
                 <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${pair.id}"/>
-                <input type="submit" th:value="#{admin.delete}"/>
+                <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
             </form></td>
         </tr>
         </tbody>
     </table>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <h2 th:if="${action} eq 'add'" th:text="#{admin.addSubject}" class="text-center">Add</h2>
     <h2 th:if="${action} eq 'edit'" th:text="#{admin.editSubject}" class="text-center">Edit</h2>
     <form class="form-horizontal" th:object="${subject}" method="post">
@@ -39,5 +39,6 @@
         </div>
     </form>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

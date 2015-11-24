@@ -8,13 +8,24 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
-    <ul>
-        <li th:each="newsItem : ${news}">
-            <span th:text="${#dates.format(newsItem.date, 'dd.LL HH:mm')}"></span>
-            <span th:text="${newsItem.content}"></span>
-        </li>
-    </ul>
+<div class="center-block center-wrapper contentFix">
+    <div class="jumbotron text-center">
+        <h2 th:text="#{index.jumbotron.head}">Welcome!</h2>
+        <p th:text="#{index.jumbotron.body}">Welcome to our schedule</p>
+        <p><a th:href="@{/forStudents}" class="btn btn-primary" th:text="#{index.jumbotron.button}">Go to schedule</a></p>
+    </div>
+    <div class="">
+        <h2 class="text-center" th:text="#{index.lastNews}">Last news</h2>
+        <ul class="text-left">
+            <li th:each="newsItem : ${news}">
+                <p>
+                    <span class="time" th:text="${#dates.format(newsItem.date, 'dd.LL.yy')}"></span>
+                    <span th:text="${newsItem.content}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

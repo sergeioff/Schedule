@@ -8,30 +8,33 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <div th:include="page :: adminMenu"></div>
-    <center><a th:href="@{/admin/news/add}" class="btn btn-success" th:text="#{admin.addNews}">Add news</a></center>
+    <div class="text-center">
+        <a th:href="@{/admin/news/add}" class="btn btn-success" th:text="#{admin.addNews}">Add news</a>
+    </div>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="3" class="text-center" th:text="#{news}">News</th>
+            <th colspan="2" class="text-center"><h3 th:text="#{news}">News</h3></th>
         </tr>
         <tr>
             <th th:text="#{content}">Content</th>
-            <th colspan="2" th:text="#{admin.actions}">Actions</th>
+            <th class="text-right" th:text="#{admin.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="newsItem : ${news}">
             <td th:text="${newsItem.content}">content</td>
-            <td><a th:href="@{/admin/news/edit/} + ${newsItem.id}" th:text="#{admin.edit}">Edit</a></td>
-            <td><form th:action="@{/admin/news/delete}" method="POST">
+            <td class="text-right"><a th:href="@{/admin/news/edit/} + ${newsItem.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+                <form class="deleteForm" th:action="@{/admin/news/delete}" method="POST">
                 <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${newsItem.id}"/>
-                <input type="submit" th:value="#{admin.delete}"/>
+                <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
             </form></td>
         </tr>
         </tbody>
     </table>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

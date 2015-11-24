@@ -22,6 +22,7 @@ public class TeachersController {
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
         model.addAttribute("teachers", teachersRepository.getAllTeachers());
+        model.addAttribute("currentTab", "teachers");
         return "admin/teachers/index";
     }
 

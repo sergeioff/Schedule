@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 table, center {
     margin-bottom: 1%;
     width: 100%;
@@ -25,10 +29,49 @@ table, center {
     margin-right: 2%;
 }
 
-nav.navbar ul.nav li a:hover {
-    background: #a3a3a3 !important;
-}
-
 .form-buttons a {
     margin-right: 5%;
+}
+
+.adminMenu {
+    margin-bottom: 1%;
+}
+
+.deleteForm {
+    display: inline;
+}
+
+.time {
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+.footer {
+    margin-bottom: 0;
+    height: 75px;
+}
+
+.contentFix {
+    min-height: calc(100vh - 157px);
+}
+
+.copy {
+    margin-top: 22px;
+    color: white;
+}
+
+.copy a:hover {
+    color:white;
+    text-decoration: none;
+}
+
+.languageSelect {
+    float: right;
+}
+
+.languageImg {
+    width: 40px;
+    height: 20px;
+    border-radius: 15%;
 }

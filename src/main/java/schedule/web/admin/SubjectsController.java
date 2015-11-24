@@ -29,6 +29,7 @@ public class SubjectsController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("subjects", subjectsRepository.getAllSubjects());
+        model.addAttribute("currentTab", "subjects");
         return "admin/subjects/index";
     }
 

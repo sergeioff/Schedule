@@ -29,6 +29,7 @@ public class GroupsController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("groups", groupRepository.getAllGroups());
+        model.addAttribute("currentTab", "groups");
         return "admin/groups/index";
     }
 

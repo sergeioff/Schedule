@@ -22,6 +22,7 @@ public class TypesController {
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
         model.addAttribute("types", typesRepository.getAllTypes());
+        model.addAttribute("currentTab", "types");
         return "admin/types/index";
     }
 

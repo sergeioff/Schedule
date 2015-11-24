@@ -8,7 +8,7 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <div class="center-block select-form">
         <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forStudents}" method="POST">
             <div class="form-group">
@@ -62,5 +62,6 @@
         </table>
     </div>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

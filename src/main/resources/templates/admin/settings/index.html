@@ -8,7 +8,7 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <div th:include="page :: adminMenu"></div>
     <h2 class="text-center" th:text="#{admin.settings}">Settings</h2>
     <form class="form-horizontal" th:object="${settingsForm}" method="post">
@@ -53,5 +53,6 @@
         </div>
     </form>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

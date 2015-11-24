@@ -22,6 +22,7 @@ public class NewsController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("news", newsRepository.getAllNews());
+        model.addAttribute("currentTab", "news");
         return "admin/news/index";
     }
 

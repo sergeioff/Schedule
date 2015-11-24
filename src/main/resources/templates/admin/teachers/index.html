@@ -8,30 +8,33 @@
 </head>
 <body>
 <header th:include="page :: header"></header>
-<div class="center-block center-wrapper">
+<div class="center-block center-wrapper contentFix">
     <div th:include="page :: adminMenu"></div>
-    <center><a th:href="@{/admin/teachers/add}" th:text="#{admin.addTeacher}" class="btn btn-success">Add teacher</a></center>
+    <div class="text-center">
+        <a th:href="@{/admin/teachers/add}" th:text="#{admin.addTeacher}" class="btn btn-success">Add teacher</a>
+    </div>
     <table class="table">
         <thead>
         <tr>
-            <th colspan="3" th:text="#{admin.teachers}" class="text-center">Teachers</th>
+            <th colspan="2" class="text-center"><h3 th:text="#{admin.teachers}">Teachers</h3></th>
         </tr>
         <tr>
             <th th:text="#{admin.teacherName}">Name</th>
-            <th colspan="2" th:text="#{admin.actions}">Actions</th>
+            <th class="text-right" th:text="#{admin.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="teacher : ${teachers}">
             <td th:text="${teacher.name}">Name</td>
-            <td><a th:href="@{/admin/teachers/edit/} + ${teacher.id}" th:text="#{admin.edit}">Edit</a></td>
-            <td><form th:action="@{/admin/teachers/delete}" method="POST">
+            <td class="text-right"><a th:href="@{/admin/teachers/edit/} + ${teacher.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+            <form class="deleteForm" th:action="@{/admin/teachers/delete}" method="POST">
                 <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${teacher.id}"/>
-                <input type="submit" th:value="#{admin.delete}"/>
+                <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
             </form></td>
         </tr>
         </tbody>
     </table>
 </div>
+<footer th:include="page :: footer"></footer>
 </body>
 </html>

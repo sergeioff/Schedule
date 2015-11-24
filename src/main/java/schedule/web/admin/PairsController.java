@@ -37,6 +37,7 @@ public class PairsController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(@CookieValue(value = "group", defaultValue = "-1") long group, Model model) {
         model.addAttribute("groups", groupsRepository.getAllGroups());
+        model.addAttribute("currentTab", "schedule");
         Group selectedGroup = groupsRepository.getGroupById(group);
 
         if (selectedGroup != null) {
