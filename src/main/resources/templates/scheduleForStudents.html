@@ -39,7 +39,7 @@
         <table th:each="day : ${schedule}" class="table table-responsive table-student">
             <thead>
             <tr>
-                <th colspan="5" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
+                <th colspan="6" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
             </tr>
             <tr th:if="${#lists.size(day.value)} gt 0">
                 <th>#</th>
