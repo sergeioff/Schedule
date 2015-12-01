@@ -45,7 +45,7 @@
             <div class="col-sm-5">
                 <select class="form-control" th:field="*{day}">
                     <option th:each="day : ${#numbers.sequence(1, daysCount)}"
-                            th:value="${day}" th:text="${day}">Day</option>
+                            th:value="${day}" th:text="#{day + ${day}}">Day</option>
                 </select>
             </div>
         </div>
