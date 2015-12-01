@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title th:text="#{titles.admin.buzzers}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<header th:include="page :: header"></header>
+<div class="center-block center-wrapper contentFix">
+    <div th:include="page :: adminMenu"></div>
+    <div class="text-center">
+        <a th:href="@{/admin/buzzers/add}" class="btn btn-success" th:text="#{admin.addBuzzers}">Add buzzers</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="4" class="text-center"><h3 th:text="#{buzzers}">Buzzers</h3></th>
+        </tr>
+        <tr>
+            <th th:text="#{numberOfPair}">#</th>
+            <th th:text="#{admin.buzzers.start}">start</th>
+            <th th:text="#{admin.buzzers.end}">end</th>
+            <th class="text-right" th:text="#{admin.actions}">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="buzzer : ${buzzers}">
+            <td th:text="${buzzer.pairNumber}"># of pair</td>
+            <td th:text="${buzzer.startTime}">Start</td>
+            <td th:text="${buzzer.endTime}">End</td>
+            <td class="text-right"><a th:href="@{/admin/buzzers/edit/} + ${buzzer.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+                <form class="deleteForm" th:action="@{/admin/buzzers/delete}" method="POST">
+                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${buzzer.id}"/>
+                <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:include="page :: footer"></footer>
+</body>
+</html>

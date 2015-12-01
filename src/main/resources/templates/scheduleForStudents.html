@@ -43,6 +43,7 @@
             </tr>
             <tr th:if="${#lists.size(day.value)} gt 0">
                 <th>#</th>
+                <th th:text="#{time}">Time</th>
                 <th th:text="#{subject}">Subject</th>
                 <th th:text="#{type}">Type</th>
                 <th th:text="#{teacher}" class="hidden-xs">Teacher</th>
@@ -53,6 +54,7 @@
             <tbody>
             <tr th:each="pair : ${day.value}" th:if="${pair != null}">
                 <td th:text="${pair.numberInDay}"></td>
+                <td th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
                 <td th:text="${pair.subject.name}"></td>
                 <td th:text="${pair.type.name}"></td>
                 <td th:text="${pair.subject.teacher.name}" class="hidden-xs"></td>

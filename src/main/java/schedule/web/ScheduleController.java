@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import schedule.dao.BuzzerDao;
 import schedule.dao.GroupDao;
 import schedule.dao.PairDao;
 import schedule.models.Pair;
@@ -22,11 +23,13 @@ import java.util.List;
 public class ScheduleController {
     private PairDao pairsRepository;
     private GroupDao groupsRepository;
+    private BuzzerDao buzzersRepository;
 
     @Autowired
-    public ScheduleController(PairDao pairsRepository, GroupDao groupsRepository) {
+    public ScheduleController(PairDao pairsRepository, GroupDao groupsRepository, BuzzerDao buzzersRepository) {
         this.pairsRepository = pairsRepository;
         this.groupsRepository = groupsRepository;
+        this.buzzersRepository = buzzersRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -62,6 +65,7 @@ public class ScheduleController {
             }
 
             model.addAttribute("schedule", schedule.entrySet());
+            model.addAttribute("buzzers", buzzersRepository.getAllBuzzers());
             model.addAttribute("selectForm", new ScheduleSelectForm(groupId, subgroup, week));
         } else {
             model.addAttribute("selectForm", new ScheduleSelectForm());
