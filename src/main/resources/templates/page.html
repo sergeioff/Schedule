@@ -10,11 +10,12 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li><a th:href="@{/forStudents}" th:text="#{mainMenu.forStudents}">For students</a></li>
-                    <li><a th:href="@{/admin}">Admin</a></li>
+                    <li><a th:href="@{/forTeachers}" th:text="#{mainMenu.forTeachers}">For teachers</a></li>
                 </ul>
                 <ul class="nav navbar-nav languageSelect">
                     <li><a th:href="@{?lang=en}"><img class="languageImg" th:src="@{/img/en.gif}" alt="English"/></a></li>
                     <li><a th:href="@{?lang=ru}"><img class="languageImg" th:src="@{/img/ru.gif}" alt="Русский"/></a></li>
+                    <li><a th:href="@{?lang=ua}"><img class="languageImg" th:src="@{/img/ua.gif}" alt="Українська"/></a></li>
                 </ul>
             </div>
         </div>

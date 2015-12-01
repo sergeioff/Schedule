@@ -86,3 +86,7 @@ table, center {
     height: 20px;
     border-radius: 15%;
 }
+
+.subjects {
+    transition: display 2s;
+}

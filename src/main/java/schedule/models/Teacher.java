@@ -12,7 +12,7 @@ public class Teacher {
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 15)
+    @Size(min = 3, max = 50)
     private String name;
 
     public Teacher() { }
