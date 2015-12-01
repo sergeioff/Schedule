@@ -7,6 +7,17 @@ table, center {
     width: 100%;
 }
 
+@font-face {
+    font-family: Pristina;
+    src: url(fonts/Pristina.ttf);
+}
+
+.logo {
+    font-family: Pristina, "Times New Roman", cursive;
+    font-size: 2em;
+    color: rgb(97, 95, 77);
+}
+
 .table-student {
     min-width: 335px;
     background-color: rgba(225, 225, 225, 0.4);
