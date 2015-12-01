@@ -48,7 +48,7 @@
             <td th:text="${pair.day}">Day</td>
             <td th:text="${pair.numberInDay}">#</td>
             <td th:text="${pair.subGroup}">Subgroup</td>
-            <td th:text="${pair.subject.name} + '|' + ${pair.subject.teacher.name}">Subject</td>
+            <td width="30%" th:text="${pair.subject.name} + '|' + ${pair.subject.teacher.name}">Subject</td>
             <td th:text="${pair.type.name}">Type of pair</td>
             <td th:text="${pair.room}">Room</td>
             <td class="text-right"><a th:href="@{/admin/schedule/editPair/} + ${pair.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
