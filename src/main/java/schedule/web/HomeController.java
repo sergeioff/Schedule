@@ -1,12 +1,11 @@
 package schedule.web;
 
-import schedule.dao.GroupDao;
-import schedule.dao.NewsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import schedule.dao.NewsDao;
 
 @Controller
 @RequestMapping("/")
@@ -14,7 +13,7 @@ public class HomeController {
     private NewsDao newsDao;
 
     @Autowired
-    public HomeController(NewsDao newsDao, GroupDao groupDao) {
+    public HomeController(NewsDao newsDao) {
         this.newsDao = newsDao;
     }
 
