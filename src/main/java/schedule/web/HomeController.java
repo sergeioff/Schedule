@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HomeController {
     private NewsDao newsDao;
-    private GroupDao groupDao;
 
     @Autowired
     public HomeController(NewsDao newsDao, GroupDao groupDao) {
         this.newsDao = newsDao;
-        this.groupDao = groupDao;
     }
 
     @RequestMapping(method = RequestMethod.GET)
