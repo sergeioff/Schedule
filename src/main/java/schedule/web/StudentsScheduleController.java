@@ -11,7 +11,7 @@ import schedule.dao.GroupDao;
 import schedule.dao.PairDao;
 import schedule.models.Pair;
 import schedule.models.Settings;
-import schedule.models.forms.ScheduleSelectForm;
+import schedule.models.forms.StudentScheduleSelectForm;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -20,20 +20,20 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/forStudents")
-public class ScheduleController {
+public class StudentsScheduleController {
     private PairDao pairsRepository;
     private GroupDao groupsRepository;
     private BuzzerDao buzzersRepository;
 
     @Autowired
-    public ScheduleController(PairDao pairsRepository, GroupDao groupsRepository, BuzzerDao buzzersRepository) {
+    public StudentsScheduleController(PairDao pairsRepository, GroupDao groupsRepository, BuzzerDao buzzersRepository) {
         this.pairsRepository = pairsRepository;
         this.groupsRepository = groupsRepository;
         this.buzzersRepository = buzzersRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String selectGroupSubgroupAndDay(ScheduleSelectForm selectForm,
+    public String selectGroupSubgroupAndDay(StudentScheduleSelectForm selectForm,
                                             HttpServletResponse response) {
         Cookie selectedGroupCookie = new Cookie("selectedGroup", selectForm.getSelectedGroup().toString());
         Cookie selectedSubgroupCookie = new Cookie("selectedSubgroup", selectForm.getSelectedSubgroup().toString());
@@ -66,11 +66,10 @@ public class ScheduleController {
 
             model.addAttribute("schedule", schedule.entrySet());
             model.addAttribute("buzzers", buzzersRepository.getAllBuzzers());
-            model.addAttribute("selectForm", new ScheduleSelectForm(groupId, subgroup, week));
+            model.addAttribute("selectForm", new StudentScheduleSelectForm(groupId, subgroup, week));
         } else {
-            model.addAttribute("selectForm", new ScheduleSelectForm());
+            model.addAttribute("selectForm", new StudentScheduleSelectForm());
         }
-
 
         model.addAttribute("groups", groupsRepository.getAllGroups());
         model.addAttribute("subgroupsCount", Settings.getSubgroupsInGroup());

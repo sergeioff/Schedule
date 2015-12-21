@@ -18,14 +18,10 @@ table, center {
     color: rgb(97, 95, 77);
 }
 
-.table-student {
+.scheduleTable {
     min-width: 335px;
     background-color: rgba(225, 225, 225, 0.4);
     border-radius: 20px;
-}
-
-.table-teacher {
-    min-width: 400px;
 }
 
 .center-wrapper {

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="#{titles.forStudents}">Schedule</title>
+    <title th:text="#{titles.forTeachers}">Schedule</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
@@ -10,18 +10,11 @@
 <header th:include="page :: header"></header>
 <div class="center-block center-wrapper contentFix">
     <div class="center-block select-form">
-        <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forStudents}" method="POST">
+        <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forTeachers}" method="POST">
             <div class="form-group">
-                <label for="groupSelect" th:text="#{group}">Group:</label>
-                <select id="groupSelect" th:field="*{selectedGroup}" name="selectedGroup" class="form-control">
-                    <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}">Group</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="subGroupSelect" th:text="#{subgroup}">Subgroup:</label>
-                <select id="subGroupSelect" th:field="*{selectedSubgroup}" name="selectedSubgroup" class="form-control">
-                    <option th:each="subgroup : ${#numbers.sequence(1, subgroupsCount)}"
-                            th:value="${subgroup}" th:text="${subgroup}">Subgroup</option>
+                <label for="teacherSelect" th:text="#{teacher}">Teacher:</label>
+                <select id="teacherSelect" th:field="*{selectedTeacher}" name="selectedTeacher" class="form-control">
+                    <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}">Teacher</option>
                 </select>
             </div>
             <div class="form-group">
@@ -35,7 +28,7 @@
         </form>
     </div>
     <div>
-        <h3 class="text-center" th:if="${schedule eq null}" th:text="#{selectGroupMessage}">Select a group</h3>
+        <h3 class="text-center" th:if="${schedule eq null}" th:text="#{selectTeacherMessage}">Select a teacher</h3>
         <table th:each="day : ${schedule}" class="table table-responsive scheduleTable">
             <thead>
             <tr>
@@ -46,7 +39,7 @@
                 <th th:text="#{time}">Time</th>
                 <th th:text="#{subject}">Subject</th>
                 <th th:text="#{type}">Type</th>
-                <th th:text="#{teacher}" class="hidden-xs">Teacher</th>
+                <th th:text="#{group}">Group</th>
                 <th th:text="#{room}">Room</th>
             </tr>
             <tr th:if="${#lists.isEmpty(day.value)}"><td colspan="8" class="text-center"><h4 th:text="#{noPairs}">No pairs</h4></td></tr>
@@ -57,7 +50,7 @@
                 <td th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
                 <td th:text="${pair.subject.name}"></td>
                 <td th:text="${pair.type.name}"></td>
-                <td th:text="${pair.subject.teacher.name}" class="hidden-xs"></td>
+                <td th:text="${pair.currentGroup.name}"></td>
                 <td th:text="${pair.room}"></td>
             </tr>
             </tbody>

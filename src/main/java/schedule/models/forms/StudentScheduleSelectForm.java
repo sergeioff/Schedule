@@ -2,7 +2,7 @@ package schedule.models.forms;
 
 import javax.validation.constraints.NotNull;
 
-public class ScheduleSelectForm {
+public class StudentScheduleSelectForm {
     @NotNull
     private Long selectedGroup;
 
@@ -12,9 +12,9 @@ public class ScheduleSelectForm {
     @NotNull
     private Long selectedWeek;
 
-    public ScheduleSelectForm() { }
+    public StudentScheduleSelectForm() { }
 
-    public ScheduleSelectForm(Long selectedGroup, Long selectedSubgroup, Long selectedWeek) {
+    public StudentScheduleSelectForm(Long selectedGroup, Long selectedSubgroup, Long selectedWeek) {
         this.selectedGroup = selectedGroup;
         this.selectedSubgroup = selectedSubgroup;
         this.selectedWeek = selectedWeek;
