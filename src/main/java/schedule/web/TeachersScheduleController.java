@@ -1,4 +1,4 @@
-package schedule.web.admin;
+package schedule.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,8 +64,8 @@ public class TeachersScheduleController {
         Cookie selectedTeacherCookie = new Cookie("selectedTeacher", selectForm.getSelectedTeacher().toString());
         Cookie selectedWeekCookie = new Cookie("selectedWeek", selectForm.getSelectedWeek().toString());
 
-        selectedTeacherCookie.setMaxAge(31556926);
-        selectedWeekCookie.setMaxAge(31556926);
+        selectedTeacherCookie.setMaxAge(CookieAgeConstants.Year);
+        selectedWeekCookie.setMaxAge(CookieAgeConstants.Year);
 
         response.addCookie(selectedTeacherCookie);
         response.addCookie(selectedWeekCookie);

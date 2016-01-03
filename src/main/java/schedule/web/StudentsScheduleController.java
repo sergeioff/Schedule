@@ -39,9 +39,9 @@ public class StudentsScheduleController {
         Cookie selectedSubgroupCookie = new Cookie("selectedSubgroup", selectForm.getSelectedSubgroup().toString());
         Cookie selectedWeekCookie = new Cookie("selectedWeek", selectForm.getSelectedWeek().toString());
 
-        selectedGroupCookie.setMaxAge(31556926);
-        selectedSubgroupCookie.setMaxAge(31556926);
-        selectedWeekCookie.setMaxAge(31556926);
+        selectedGroupCookie.setMaxAge(CookieAgeConstants.Year);
+        selectedSubgroupCookie.setMaxAge(CookieAgeConstants.Year);
+        selectedWeekCookie.setMaxAge(CookieAgeConstants.Year);
 
         response.addCookie(selectedGroupCookie);
         response.addCookie(selectedSubgroupCookie);
