@@ -42,7 +42,7 @@ public class BuzzersController {
 
         buzzersRepository.save(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "newsAdded"); //TODO: change
+        redirectAttributes.addFlashAttribute("message", "buzzerAdded");
         return "redirect:/admin/buzzers";
     }
 
@@ -64,7 +64,7 @@ public class BuzzersController {
 
         buzzersRepository.save(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "newsUpdated"); //TODO: change
+        redirectAttributes.addFlashAttribute("message", "buzzerUpdated");
         return "redirect:/admin/buzzers";
     }
 
@@ -73,7 +73,7 @@ public class BuzzersController {
         BuzzerOnPair buzzerOnPair = buzzersRepository.getBuzzerOnPairById(deleteId);
         buzzersRepository.delete(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "newsDeleted"); //TODO: change
+        redirectAttributes.addFlashAttribute("message", "buzzerDeleted");
         return "redirect:/admin/buzzers";
     }
 }
