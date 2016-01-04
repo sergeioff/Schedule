@@ -15,8 +15,7 @@ import schedule.models.forms.StudentScheduleSelectForm;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/forStudents")
@@ -35,17 +34,16 @@ public class StudentsScheduleController {
     @RequestMapping(method = RequestMethod.POST)
     public String selectGroupSubgroupAndDay(StudentScheduleSelectForm selectForm,
                                             HttpServletResponse response) {
-        Cookie selectedGroupCookie = new Cookie("selectedGroup", selectForm.getSelectedGroup().toString());
-        Cookie selectedSubgroupCookie = new Cookie("selectedSubgroup", selectForm.getSelectedSubgroup().toString());
-        Cookie selectedWeekCookie = new Cookie("selectedWeek", selectForm.getSelectedWeek().toString());
+        ArrayList<Cookie> cookies = new ArrayList<>();
 
-        selectedGroupCookie.setMaxAge(CookieAgeConstants.Year);
-        selectedSubgroupCookie.setMaxAge(CookieAgeConstants.Year);
-        selectedWeekCookie.setMaxAge(CookieAgeConstants.Year);
+        cookies.add(new Cookie("selectedGroup", selectForm.getSelectedGroup().toString()));
+        cookies.add(new Cookie("selectedSubgroup", selectForm.getSelectedSubgroup().toString()));
+        cookies.add(new Cookie("selectedWeek", selectForm.getSelectedWeek().toString()));
 
-        response.addCookie(selectedGroupCookie);
-        response.addCookie(selectedSubgroupCookie);
-        response.addCookie(selectedWeekCookie);
+        cookies.forEach(cookie -> {
+            cookie.setMaxAge(CookieAgeConstants.Year);
+            response.addCookie(cookie);
+        });
 
         return "redirect:/forStudents";
     }
@@ -57,7 +55,7 @@ public class StudentsScheduleController {
 
         if (groupId != -1) {
             long days = Settings.getDaysCount();
-            HashMap<Long, List<Pair>> schedule = new HashMap<Long, List<Pair>>();
+            HashMap<Long, List<Pair>> schedule = new HashMap<>();
 
             for (long day = 1; day <= days; day++) {
                 schedule.put(day, pairsRepository.getPairsByGroupSubgroupWeekAndDay(

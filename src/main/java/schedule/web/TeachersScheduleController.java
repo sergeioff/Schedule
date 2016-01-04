@@ -15,6 +15,7 @@ import schedule.models.forms.TeacherScheduleSelectForm;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class TeachersScheduleController {
                                Model model) {
         if (teacherId != -1) {
             long days = Settings.getDaysCount();
-            HashMap<Long, List<Pair>> schedule = new HashMap<Long, List<Pair>>();
+            HashMap<Long, List<Pair>> schedule = new HashMap<>();
 
             for (long day = 1; day <= days; day++) {
                 schedule.put(day, pairsRepository.getPairsByTeacherWeekAndDay(
@@ -61,14 +62,15 @@ public class TeachersScheduleController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String selectTeacherAndWeek(TeacherScheduleSelectForm selectForm, HttpServletResponse response) {
-        Cookie selectedTeacherCookie = new Cookie("selectedTeacher", selectForm.getSelectedTeacher().toString());
-        Cookie selectedWeekCookie = new Cookie("selectedWeek", selectForm.getSelectedWeek().toString());
+        ArrayList<Cookie> cookies = new ArrayList<>();
 
-        selectedTeacherCookie.setMaxAge(CookieAgeConstants.Year);
-        selectedWeekCookie.setMaxAge(CookieAgeConstants.Year);
+        cookies.add(new Cookie("selectedTeacher", selectForm.getSelectedTeacher().toString()));
+        cookies.add(new Cookie("selectedWeek", selectForm.getSelectedWeek().toString()));
 
-        response.addCookie(selectedTeacherCookie);
-        response.addCookie(selectedWeekCookie);
+        cookies.forEach(cookie -> {
+            cookie.setMaxAge(CookieAgeConstants.Year);
+            response.addCookie(cookie);
+        });
 
         return "redirect:/forTeachers";
     }
