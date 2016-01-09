@@ -7,36 +7,40 @@
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
 <body>
-<header th:include="page :: header"></header>
-<div class="center-block center-wrapper contentFix">
-    <div th:include="page :: adminMenu"></div>
-    <div class="text-center">
-        <a th:href="@{/admin/subjects/add}" class="btn btn-success" th:text="#{admin.addSubject}">Add subject</a>
+    <div class="wrapper">
+        <div class="content">
+            <header th:include="page :: header"></header>
+            <div class="center-block center-wrapper">
+                <div th:include="page :: adminMenu"></div>
+                <div class="text-center">
+                    <a th:href="@{/admin/subjects/add}" class="btn btn-success" th:text="#{admin.addSubject}">Add subject</a>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="text-center"><h3 th:text="#{admin.subjects}">Subjects</h3></th>
+                    </tr>
+                    <tr>
+                        <th th:text="#{admin.name}">Name</th>
+                        <th th:text="#{admin.teacher}">Teacher</th>
+                        <th class="text-right" th:text="#{admin.actions}">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="subject : ${subjects}">
+                        <td th:text="${subject.name}">Name</td>
+                        <td th:text="${subject.teacher.name}">Teacher</td>
+                        <td class="text-right"><a th:href="@{/admin/subjects/edit/} + ${subject.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+                        <form class="deleteForm" th:action="@{/admin/subjects/delete}" method="POST">
+                            <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${subject.id}"/>
+                            <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
+                        </form></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer th:include="page :: footer"></footer>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th colspan="3" class="text-center"><h3 th:text="#{admin.subjects}">Subjects</h3></th>
-        </tr>
-        <tr>
-            <th th:text="#{admin.name}">Name</th>
-            <th th:text="#{admin.teacher}">Teacher</th>
-            <th class="text-right" th:text="#{admin.actions}">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="subject : ${subjects}">
-            <td th:text="${subject.name}">Name</td>
-            <td th:text="${subject.teacher.name}">Teacher</td>
-            <td class="text-right"><a th:href="@{/admin/subjects/edit/} + ${subject.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
-            <form class="deleteForm" th:action="@{/admin/subjects/delete}" method="POST">
-                <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${subject.id}"/>
-                <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
-            </form></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<footer th:include="page :: footer"></footer>
 </body>
 </html>

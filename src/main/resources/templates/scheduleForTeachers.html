@@ -7,56 +7,60 @@
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
 <body>
-<header th:include="page :: header"></header>
-<div class="center-block center-wrapper contentFix">
-    <div class="center-block select-form">
-        <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forTeachers}" method="POST">
-            <div class="form-group">
-                <label for="teacherSelect" th:text="#{teacher}">Teacher:</label>
-                <select id="teacherSelect" th:field="*{selectedTeacher}" name="selectedTeacher" class="form-control">
-                    <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}">Teacher</option>
-                </select>
+    <div class="wrapper">
+        <div class="content">
+            <header th:include="page :: header"></header>
+            <div class="center-block center-wrapper">
+                <div class="center-block select-form">
+                    <form class="form-inline text-center" th:object="${selectForm}"  th:action="@{/forTeachers}" method="POST">
+                        <div class="form-group">
+                            <label for="teacherSelect" th:text="#{teacher}">Teacher:</label>
+                            <select id="teacherSelect" th:field="*{selectedTeacher}" name="selectedTeacher" class="form-control">
+                                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}">Teacher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weekSelect" th:text="#{week}">Week:</label>
+                            <select id="weekSelect" th:field="*{selectedWeek}" name="selectedWeek" class="form-control">
+                                <option th:each="week : ${#numbers.sequence(startWeek, finalWeek)}"
+                                        th:value="${week}" th:text="${week}">Week</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-success" th:value="#{select}" />
+                    </form>
+                </div>
+                <div>
+                    <h3 class="text-center" th:if="${schedule eq null}" th:text="#{selectTeacherMessage}">Select a teacher</h3>
+                    <table th:each="day : ${schedule}" class="table table-responsive scheduleTable">
+                        <thead>
+                        <tr>
+                            <th colspan="6" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
+                        </tr>
+                        <tr th:if="${#lists.size(day.value)} gt 0">
+                            <th>#</th>
+                            <th th:text="#{time}">Time</th>
+                            <th th:text="#{subject}">Subject</th>
+                            <th th:text="#{type}">Type</th>
+                            <th th:text="#{group}">Group</th>
+                            <th th:text="#{room}">Room</th>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(day.value)}"><td colspan="8" class="text-center"><h4 th:text="#{noPairs}">No pairs</h4></td></tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pair : ${day.value}" th:if="${pair != null}">
+                            <td th:text="${pair.numberInDay}"></td>
+                            <td th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
+                            <td th:text="${pair.subject.name}"></td>
+                            <td th:text="${pair.type.name}"></td>
+                            <td th:text="${pair.currentGroup.name}"></td>
+                            <td th:text="${pair.room}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="weekSelect" th:text="#{week}">Week:</label>
-                <select id="weekSelect" th:field="*{selectedWeek}" name="selectedWeek" class="form-control">
-                    <option th:each="week : ${#numbers.sequence(startWeek, finalWeek)}"
-                            th:value="${week}" th:text="${week}">Week</option>
-                </select>
-            </div>
-            <input type="submit" class="btn btn-success" th:value="#{select}" />
-        </form>
+        </div>
+        <footer th:include="page :: footer"></footer>
     </div>
-    <div>
-        <h3 class="text-center" th:if="${schedule eq null}" th:text="#{selectTeacherMessage}">Select a teacher</h3>
-        <table th:each="day : ${schedule}" class="table table-responsive scheduleTable">
-            <thead>
-            <tr>
-                <th colspan="6" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
-            </tr>
-            <tr th:if="${#lists.size(day.value)} gt 0">
-                <th>#</th>
-                <th th:text="#{time}">Time</th>
-                <th th:text="#{subject}">Subject</th>
-                <th th:text="#{type}">Type</th>
-                <th th:text="#{group}">Group</th>
-                <th th:text="#{room}">Room</th>
-            </tr>
-            <tr th:if="${#lists.isEmpty(day.value)}"><td colspan="8" class="text-center"><h4 th:text="#{noPairs}">No pairs</h4></td></tr>
-            </thead>
-            <tbody>
-            <tr th:each="pair : ${day.value}" th:if="${pair != null}">
-                <td th:text="${pair.numberInDay}"></td>
-                <td th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
-                <td th:text="${pair.subject.name}"></td>
-                <td th:text="${pair.type.name}"></td>
-                <td th:text="${pair.currentGroup.name}"></td>
-                <td th:text="${pair.room}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<footer th:include="page :: footer"></footer>
 </body>
 </html>

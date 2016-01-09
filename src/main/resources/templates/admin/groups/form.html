@@ -7,37 +7,41 @@
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 </head>
 <body>
-<header th:include="page :: header"></header>
-<div class="center-block center-wrapper contentFix">
-    <h2 th:if="${action} eq 'add'" th:text="#{admin.addGroup}" class="text-center">Add</h2>
-    <h2 th:if="${action} eq 'edit'" th:text="#{admin.editGroup}" class="text-center">Edit</h2>
-    <form class="form-horizontal" th:object="${group}" method="post">
-        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            <ul>
-                <li th:each="error : ${#fields.errors('*')}"
-                    th:text="${error}">error</li>
-            </ul>
-        </div>
-        <div th:class="${#fields.hasErrors('name')}? 'form-group has-error': 'form-group'">
-            <label th:for="name" class="col-sm-4 control-label" th:text="#{admin.name}">Name</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" th:field="*{name}" th:placeholder="#{admin.name}"/>
+    <div class="wrapper">
+        <div class="content">
+            <header th:include="page :: header"></header>
+            <div class="center-block center-wrapper">
+                <h2 th:if="${action} eq 'add'" th:text="#{admin.addGroup}" class="text-center">Add</h2>
+                <h2 th:if="${action} eq 'edit'" th:text="#{admin.editGroup}" class="text-center">Edit</h2>
+                <form class="form-horizontal" th:object="${group}" method="post">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('*')}"
+                                th:text="${error}">error</li>
+                        </ul>
+                    </div>
+                    <div th:class="${#fields.hasErrors('name')}? 'form-group has-error': 'form-group'">
+                        <label th:for="name" class="col-sm-4 control-label" th:text="#{admin.name}">Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" th:field="*{name}" th:placeholder="#{admin.name}"/>
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('subjects')}? 'form-group has-error': 'form-group'">
+                        <label th:for="teacherId" class="col-sm-4 control-label" th:text="#{admin.subjects}">Subjects</label>
+                        <div class="col-sm-5">
+                            <select multiple="multiple" class="form-control" th:field="*{subjects}">
+                                <option th:each="subject : ${subjectsList}" th:value="${subject.id}" th:text="${subject.name} + '|' + ${subject.teacher.name}">Subject</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-buttons text-center">
+                        <a th:href="@{/admin/groups}" class="btn btn-danger" th:text="#{admin.cancel}">Cancel</a>
+                        <input type="submit" th:value="#{admin.save}" class="btn btn-success"/>
+                    </div>
+                </form>
             </div>
         </div>
-        <div th:class="${#fields.hasErrors('subjects')}? 'form-group has-error': 'form-group'">
-            <label th:for="teacherId" class="col-sm-4 control-label" th:text="#{admin.subjects}">Subjects</label>
-            <div class="col-sm-5">
-                <select multiple="multiple" class="form-control" th:field="*{subjects}">
-                    <option th:each="subject : ${subjectsList}" th:value="${subject.id}" th:text="${subject.name} + '|' + ${subject.teacher.name}">Subject</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-buttons text-center">
-            <a th:href="@{/admin/groups}" class="btn btn-danger" th:text="#{admin.cancel}">Cancel</a>
-            <input type="submit" th:value="#{admin.save}" class="btn btn-success"/>
-        </div>
-    </form>
-</div>
-<footer th:include="page :: footer"></footer>
+        <footer th:include="page :: footer"></footer>
+    </div>
 </body>
 </html>
