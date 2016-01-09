@@ -1,5 +1,6 @@
 package schedule.web.admin;
 
+import org.springframework.context.MessageSource;
 import schedule.dao.GroupDao;
 import schedule.dao.SubjectDao;
 import schedule.models.Group;
@@ -13,17 +14,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/groups")
 public class GroupsController {
     private GroupDao groupRepository;
     private SubjectDao subjectRepository;
+    private MessageSource messageSource;
 
     @Autowired
-    public GroupsController(GroupDao groupRepository, SubjectDao subjectRepository) {
+    public GroupsController(GroupDao groupRepository, SubjectDao subjectRepository, MessageSource messageSource) {
         this.groupRepository = groupRepository;
         this.subjectRepository = subjectRepository;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -33,6 +37,7 @@ public class GroupsController {
         return "admin/groups/index";
     }
 
+    @SuppressWarnings("UnusedParameters")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(Group group, Model model) {
         model.addAttribute("action", "add");
@@ -42,7 +47,7 @@ public class GroupsController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddGroup(@Valid Group group, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes) {
+                                  Model model, RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "add");
             model.addAttribute("subjectsList", subjectRepository.getAllSubjects());
@@ -50,7 +55,10 @@ public class GroupsController {
         }
 
         groupRepository.save(group);
-        redirectAttributes.addFlashAttribute("message", "groupAdded");
+
+        String message = messageSource.getMessage("admin.messages.groupAdded", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/groups";
     }
 
@@ -62,9 +70,10 @@ public class GroupsController {
         return "admin/groups/form";
     }
 
+    @SuppressWarnings("MVCPathVariableInspection")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String updateGroup(@Valid Group group, BindingResult bindingResult,
-                              Model model, RedirectAttributes redirectAttributes) {
+                              Model model, RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "edit");
             model.addAttribute("subjectsList", subjectRepository.getAllSubjects());
@@ -73,16 +82,20 @@ public class GroupsController {
 
         groupRepository.save(group);
 
-        redirectAttributes.addFlashAttribute("message", "groupUpdated");
+        String message = messageSource.getMessage("admin.messages.groupUpdated", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/groups";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteGroup(long deleteId, RedirectAttributes redirectAttributes) {
+    public String deleteGroup(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Group group = groupRepository.getGroupById(deleteId);
         groupRepository.delete(group);
 
-        redirectAttributes.addFlashAttribute("message", "groupDeleted");
+        String message = messageSource.getMessage("admin.messages.groupDeleted", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/groups";
     }
 }

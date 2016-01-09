@@ -1,5 +1,6 @@
 package schedule.web.admin;
 
+import org.springframework.context.MessageSource;
 import schedule.dao.TeacherDao;
 import schedule.models.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/teachers")
 public class TeachersController {
-    @Autowired
     private TeacherDao teachersRepository;
+    private MessageSource messageSource;
+
+    @Autowired
+    public TeachersController(TeacherDao teachersRepository, MessageSource messageSource) {
+        this.teachersRepository = teachersRepository;
+        this.messageSource = messageSource;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     private String index(Model model) {
@@ -26,6 +34,7 @@ public class TeachersController {
         return "admin/teachers/index";
     }
 
+    @SuppressWarnings("UnusedParameters")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     private String showForm(Teacher teacher, Model model) {
         model.addAttribute("action", "add");
@@ -33,23 +42,29 @@ public class TeachersController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String processForm(@Valid Teacher teacher, BindingResult bindingResult,
-                                      Model model, RedirectAttributes redirectAttributes) {
+    private String processForm(@Valid Teacher teacher, BindingResult bindingResult, Model model,
+                               RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "add");
             return "admin/teachers/form";
         }
 
         teachersRepository.save(teacher);
-        redirectAttributes.addFlashAttribute("message", "teacherAdded");
+
+        String message = messageSource.getMessage("admin.messages.teacherAdded", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/teachers";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    private String deleteTeacher(long deleteId, RedirectAttributes redirectAttributes) {
+    private String deleteTeacher(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Teacher teacher = teachersRepository.getTeacherById(deleteId);
         teachersRepository.delete(teacher);
-        redirectAttributes.addFlashAttribute("message", "teacherDeleted");
+
+        String message = messageSource.getMessage("admin.messages.teacherDeleted", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/teachers";
     }
 
@@ -60,9 +75,10 @@ public class TeachersController {
         return "admin/teachers/form";
     }
 
+    @SuppressWarnings("MVCPathVariableInspection")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    private String processEdit(@Valid Teacher teacher, BindingResult bindingResult,
-                               Model model, RedirectAttributes redirectAttributes) {
+    private String processEdit(@Valid Teacher teacher, BindingResult bindingResult, Model model,
+                               RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "edit");
             return "admin/teachers/form";
@@ -70,7 +86,9 @@ public class TeachersController {
 
         teachersRepository.save(teacher);
 
-        redirectAttributes.addFlashAttribute("message", "teacherUpdated");
+        String message = messageSource.getMessage("admin.messages.teacherUpdated", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/teachers";
     }
 }

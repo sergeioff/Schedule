@@ -1,5 +1,6 @@
 package schedule.web.admin;
 
+import org.springframework.context.MessageSource;
 import schedule.dao.GroupDao;
 import schedule.dao.PairDao;
 import schedule.dao.TypeDao;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/schedule")
@@ -26,12 +28,15 @@ public class PairsController {
     private GroupDao groupsRepository;
     private PairDao pairsRepository;
     private TypeDao typesRepository;
+    private MessageSource messageSource;
 
     @Autowired
-    public PairsController(GroupDao groupsRepository, PairDao pairsRepository, TypeDao typesRepository) {
+    public PairsController(GroupDao groupsRepository, PairDao pairsRepository, TypeDao typesRepository,
+                           MessageSource messageSource) {
         this.groupsRepository = groupsRepository;
         this.pairsRepository = pairsRepository;
         this.typesRepository = typesRepository;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -57,6 +62,7 @@ public class PairsController {
         return "redirect:/admin/schedule";
     }
 
+    @SuppressWarnings("UnusedParameters")
     @RequestMapping(value = "/addPairFor{groupId}", method = RequestMethod.GET)
     public String showForm(@PathVariable long groupId, Pair pair, Model model) {
         model.addAttribute("action", "add");
@@ -67,9 +73,10 @@ public class PairsController {
         return "admin/pairs/form";
     }
 
+    @SuppressWarnings("MVCPathVariableInspection")
     @RequestMapping(value = "/addPairFor{groupId}", method = RequestMethod.POST)
-    public String processForm(@Valid Pair pair, BindingResult bindingResult,
-                              Model model, RedirectAttributes redirectAttributes) {
+    public String processForm(@Valid Pair pair, BindingResult bindingResult, Model model,
+                              RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "add");
             model.addAttribute("currentGroup", pair.getCurrentGroup());
@@ -80,7 +87,10 @@ public class PairsController {
         }
 
         pairsRepository.save(pair);
-        redirectAttributes.addFlashAttribute("message", "pairAdded");
+
+        String message = messageSource.getMessage("admin.messages.pairAdded", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/schedule";
     }
 
@@ -98,9 +108,10 @@ public class PairsController {
         return "admin/pairs/form";
     }
 
+    @SuppressWarnings("MVCPathVariableInspection")
     @RequestMapping(value = "/editPair/{id}", method = RequestMethod.POST)
-    public String processEditForm(@Valid Pair pair, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes) {
+    public String processEditForm(@Valid Pair pair, BindingResult bindingResult, Model model,
+                                  RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "edit");
             model.addAttribute("currentGroup", pair.getCurrentGroup());
@@ -111,15 +122,21 @@ public class PairsController {
         }
 
         pairsRepository.save(pair);
-        redirectAttributes.addFlashAttribute("message", "pairUpdated");
+
+        String message = messageSource.getMessage("admin.messages.pairUpdated", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/schedule";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deletePair(long deleteId, RedirectAttributes redirectAttributes) {
+    public String deletePair(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Pair pair = pairsRepository.getPairById(deleteId);
         pairsRepository.delete(pair);
-        redirectAttributes.addFlashAttribute("message", "pairDeleted");
+
+        String message = messageSource.getMessage("admin.messages.pairDeleted", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/schedule";
     }
 

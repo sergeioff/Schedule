@@ -1,6 +1,7 @@
 package schedule.web.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,12 +13,19 @@ import schedule.dao.BuzzerDao;
 import schedule.models.BuzzerOnPair;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/buzzers")
 public class BuzzersController {
-    @Autowired
     private BuzzerDao buzzersRepository;
+    private MessageSource messageSource;
+
+    @Autowired
+    public BuzzersController(BuzzerDao buzzersRepository, MessageSource messageSource) {
+        this.buzzersRepository = buzzersRepository;
+        this.messageSource = messageSource;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
@@ -26,6 +34,7 @@ public class BuzzersController {
         return "admin/buzzers/index";
     }
 
+    @SuppressWarnings("UnusedParameters")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showForm(BuzzerOnPair buzzerOnPair, Model model) {
         model.addAttribute("action", "add");
@@ -34,7 +43,7 @@ public class BuzzersController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processForm(@Valid BuzzerOnPair buzzerOnPair, BindingResult bindingResult,
-                              Model model, RedirectAttributes redirectAttributes) {
+                              Model model, RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "add");
             return "admin/buzzers/form";
@@ -42,7 +51,9 @@ public class BuzzersController {
 
         buzzersRepository.save(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "buzzerAdded");
+        String message = messageSource.getMessage("admin.messages.buzzerAdded", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/buzzers";
     }
 
@@ -54,9 +65,10 @@ public class BuzzersController {
         return "admin/buzzers/form";
     }
 
+    @SuppressWarnings("MVCPathVariableInspection")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditForm(@Valid BuzzerOnPair buzzerOnPair, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes) {
+                                  Model model, RedirectAttributes redirectAttributes, Locale locale) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "edit");
             return "admin/buzzers/form";
@@ -64,16 +76,20 @@ public class BuzzersController {
 
         buzzersRepository.save(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "buzzerUpdated");
+        String message = messageSource.getMessage("admin.messages.buzzerUpdated", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/buzzers";
     }
 
     @RequestMapping(value = "/delete")
-    public String delete(long deleteId, RedirectAttributes redirectAttributes) {
+    public String delete(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         BuzzerOnPair buzzerOnPair = buzzersRepository.getBuzzerOnPairById(deleteId);
         buzzersRepository.delete(buzzerOnPair);
 
-        redirectAttributes.addFlashAttribute("message", "buzzerDeleted");
+        String message = messageSource.getMessage("admin.messages.buzzerDeleted", null, locale);
+        redirectAttributes.addFlashAttribute("message", message);
+
         return "redirect:/admin/buzzers";
     }
 }

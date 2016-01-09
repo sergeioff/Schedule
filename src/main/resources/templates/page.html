@@ -23,29 +23,8 @@
 </header>
 
 <div th:fragment="adminMenu" class="center-block select-form">
-    <div class="alert alert-success" th:if="${message}" th:switch="${message}">
-        <b th:case="'typeAdded'" th:text="#{admin.messages.typeAdded}">Type added</b>
-        <b th:case="'typeUpdated'" th:text="#{admin.messages.typeUpdated}">Type updated</b>
-        <b th:case="'typeDeleted'" th:text="#{admin.messages.typeDeleted}">Type deleted</b>
-        <b th:case="'teacherAdded'" th:text="#{admin.messages.teacherAdded}">Teacher added</b>
-        <b th:case="'teacherUpdated'" th:text="#{admin.messages.teacherUpdated}">Teacher updated</b>
-        <b th:case="'teacherDeleted'" th:text="#{admin.messages.teacherDeleted}">Teacher deleted</b>
-        <b th:case="'subjectAdded'" th:text="#{admin.messages.subjectAdded}">Subject added</b>
-        <b th:case="'subjectUpdated'" th:text="#{admin.messages.subjectUpdated}">Subject updated</b>
-        <b th:case="'subjectDeleted'" th:text="#{admin.messages.subjectDeleted}">Subject deleted</b>
-        <b th:case="'settingsUpdated'" th:text="#{admin.messages.settingsUpdated}">Settings updated</b>
-        <b th:case="'pairAdded'" th:text="#{admin.messages.pairAdded}">Pair added</b>
-        <b th:case="'pairUpdated'" th:text="#{admin.messages.pairUpdated}">Pair updated</b>
-        <b th:case="'pairDeleted'" th:text="#{admin.messages.pairDeleted}">Pair deleted</b>
-        <b th:case="'newsAdded'" th:text="#{admin.messages.newsAdded}">News added</b>
-        <b th:case="'newsUpdated'" th:text="#{admin.messages.newsUpdated}">News updated</b>
-        <b th:case="'newsDeleted'" th:text="#{admin.messages.newsDeleted}">News deleted</b>
-        <b th:case="'groupAdded'" th:text="#{admin.messages.groupAdded}">Group added</b>
-        <b th:case="'groupUpdated'" th:text="#{admin.messages.groupUpdated}">Group updated</b>
-        <b th:case="'groupDeleted'" th:text="#{admin.messages.groupDeleted}">Group deleted</b>
-        <b th:case="'buzzerAdded'" th:text="#{admin.messages.buzzerAdded}">Buzzer added</b>
-        <b th:case="'buzzerUpdated'" th:text="#{admin.messages.buzzerUpdated}">Buzzer updated</b>
-        <b th:case="'buzzerDeleted'" th:text="#{admin.messages.buzzerDeleted}">Buzzer deleted</b>
+    <div class="alert alert-success" th:if="${message}">
+        <strong class="text-bold" th:text="${message}">Message</strong>
     </div>
     <div class="adminMenu">
         <ul class="nav nav-tabs">
