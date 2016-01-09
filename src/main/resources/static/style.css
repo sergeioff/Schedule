@@ -19,9 +19,8 @@ table, center {
 }
 
 .scheduleTable {
-    min-width: 335px;
     background-color: rgba(225, 225, 225, 0.4);
-    border-radius: 20px;
+    border-radius: 1.5em;
 }
 
 .center-wrapper {
@@ -53,18 +52,8 @@ table, center {
     font-weight: bold;
 }
 
-
-.footer {
-    margin-bottom: 0;
-    height: 75px;
-}
-
-.contentFix {
-    min-height: calc(100vh - 157px);
-}
-
 .copy {
-    margin-top: 22px;
+    padding-top: 2.5%;
     color: white;
 }
 
@@ -78,9 +67,27 @@ table, center {
 }
 
 .languageImg {
-    width: 40px;
-    height: 20px;
+    width: 2.5em;
+    height: 1.5em;
     border-radius: 15%;
+}
+
+ul.mobileLanguageSelect {
+    margin-top: 1.2em;
+}
+
+.mobileLanguageSelect li {
+    display: inline;
+    margin-left: .5em;
+}
+
+.mobileLanguageSelect li a {
+    color: #fff;
+}
+
+.mobileLanguageSelect li a:hover {
+    color: #18bc9c;
+    text-decoration: none;
 }
 
 .subjects {
