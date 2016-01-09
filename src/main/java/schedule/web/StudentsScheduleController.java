@@ -15,7 +15,9 @@ import schedule.models.forms.StudentScheduleSelectForm;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/forStudents")

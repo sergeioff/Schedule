@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import schedule.web.CookieAgeConstants;
 
 import java.util.Locale;
 
@@ -24,7 +24,7 @@ public class Application extends WebMvcConfigurerAdapter {
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
         cookieLocaleResolver.setDefaultLocale(Locale.US);
-        cookieLocaleResolver.setCookieMaxAge(31556926);
+        cookieLocaleResolver.setCookieMaxAge(CookieAgeConstants.Year);
         return cookieLocaleResolver;
     }
 

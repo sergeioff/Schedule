@@ -1,8 +1,8 @@
 package schedule.dao;
 
-import schedule.models.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import schedule.models.Group;
 
 import javax.transaction.Transactional;
 import java.util.List;

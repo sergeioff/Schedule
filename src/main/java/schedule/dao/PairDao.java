@@ -1,10 +1,10 @@
 package schedule.dao;
 
-import schedule.models.Group;
-import schedule.models.Pair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import schedule.models.Group;
+import schedule.models.Pair;
 import schedule.models.Teacher;
 
 import javax.transaction.Transactional;
