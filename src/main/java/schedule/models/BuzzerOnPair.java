@@ -14,14 +14,14 @@ public class BuzzerOnPair {
     private Long id;
 
     @NotNull
-    @Min(1)
+    @Min(value = 1)
     @Max(10)
     private Integer pairNumber;
 
-    @NotNull
+    @NotNull(message = "{buzzerError}")
     private LocalTime startTime;
 
-    @NotNull
+    @NotNull(message = "{buzzerError}")
     private LocalTime endTime;
 
     public BuzzerOnPair() {
