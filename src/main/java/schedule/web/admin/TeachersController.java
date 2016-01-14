@@ -60,10 +60,15 @@ public class TeachersController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     private String deleteTeacher(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Teacher teacher = teachersRepository.getTeacherById(deleteId);
-        teachersRepository.delete(teacher);
 
-        String message = messageSource.getMessage("admin.messages.teacherDeleted", null, locale);
-        redirectAttributes.addFlashAttribute("message", message);
+        try {
+            teachersRepository.delete(teacher);
+            redirectAttributes.addFlashAttribute("message",
+                    messageSource.getMessage("admin.messages.teacherDeleted", null, locale));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    messageSource.getMessage("admin.messages.teacherDeletionError", null, locale));
+        }
 
         return "redirect:/admin/teachers";
     }

@@ -1,5 +1,6 @@
 package schedule.web.admin;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -91,10 +92,15 @@ public class GroupsController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteGroup(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Group group = groupRepository.getGroupById(deleteId);
-        groupRepository.delete(group);
 
-        String message = messageSource.getMessage("admin.messages.groupDeleted", null, locale);
-        redirectAttributes.addFlashAttribute("message", message);
+        try {
+            groupRepository.delete(group);
+            redirectAttributes.addFlashAttribute("message",
+                    messageSource.getMessage("admin.messages.groupDeleted", null, locale));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    messageSource.getMessage("admin.messages.groupDeletionError", null, locale));
+        }
 
         return "redirect:/admin/groups";
     }

@@ -60,10 +60,14 @@ public class TypesController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     private String deleteTypeOfPair(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         TypeOfPair typeOfPair = typesRepository.getTypeOfPairById(deleteId);
-        typesRepository.delete(typeOfPair);
-
-        String message = messageSource.getMessage("admin.messages.typeDeleted", null, locale);
-        redirectAttributes.addFlashAttribute("message", message);
+        try {
+            typesRepository.delete(typeOfPair);
+            redirectAttributes.addFlashAttribute("message",
+                    messageSource.getMessage("admin.messages.typeDeleted", null, locale));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    messageSource.getMessage("admin.messages.typeDeletionError", null, locale));
+        }
 
         return "redirect:/admin/types";
     }

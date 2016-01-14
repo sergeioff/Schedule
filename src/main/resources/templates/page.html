@@ -31,6 +31,9 @@
     <div class="alert alert-success" th:if="${message}">
         <strong class="text-bold" th:text="${message}">Message</strong>
     </div>
+    <div class="alert alert-danger" th:if="${errorMessage}">
+        <strong class="text-bold" th:text="${errorMessage}">Message</strong>
+    </div>
     <div class="adminMenu">
         <ul class="nav nav-tabs">
             <li th:class="${currentTab eq 'news'? 'active': ''}"><a th:href="@{/admin/news}" th:text="#{admin.menu.editNews}">

@@ -92,10 +92,15 @@ public class SubjectsController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteSubject(long deleteId, RedirectAttributes redirectAttributes, Locale locale) {
         Subject subject = subjectsRepository.getSubjectById(deleteId);
-        subjectsRepository.delete(subject);
 
-        String message = messageSource.getMessage("admin.messages.subjectDeleted", null, locale);
-        redirectAttributes.addFlashAttribute("message", message);
+        try {
+            subjectsRepository.delete(subject);
+            redirectAttributes.addFlashAttribute("message",
+                    messageSource.getMessage("admin.messages.subjectDeleted", null, locale));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    messageSource.getMessage("admin.messages.subjectDeletionError", null, locale));
+        }
 
         return "redirect:/admin/subjects";
     }
