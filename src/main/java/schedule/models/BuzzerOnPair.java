@@ -1,6 +1,7 @@
 package schedule.models;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,10 +19,10 @@ public class BuzzerOnPair {
     @Max(10)
     private Integer pairNumber;
 
-    @NotNull(message = "{buzzerError}")
+    @NotNull(message = "{timeFormatError}")
     private LocalTime startTime;
 
-    @NotNull(message = "{buzzerError}")
+    @NotNull(message = "{timeFormatError}")
     private LocalTime endTime;
 
     public BuzzerOnPair() {

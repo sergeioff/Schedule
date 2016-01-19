@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title th:text="#{titles.admin.exams}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <header th:include="page :: header"></header>
+            <div class="center-block center-wrapper">
+                <div th:include="page :: adminMenu"></div>
+                <form class="form-inline text-center select-form" method="POST">
+                    <div class="form-group">
+                        <label for="groupSelect" th:text="#{admin.examsForGroup}">Exams for group:</label>
+                        <select id="groupSelect" name="selectedGroup" class="form-control">
+                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"
+                                    th:selected="'selected'?${selectedGroup.id} eq ${group.id}:''">Group</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-success" th:value="#{select}"/>
+                </form>
+                <div class="text-center">
+                <a th:if="${selectedGroup.id}" th:href="@{/admin/exams/addExamFor} + ${selectedGroup.id}" class="btn btn-success"
+                           th:text="#{admin.addExamFor} + ' ' + ${selectedGroup.name}">Add exam for GroupName</a>
+                <h3 th:if="${selectGroupMessage}" th:text="#{selectGroupMessage}">SelectGroupMessage</h3>
+                </div>
+                <table class="table" th:if="${exams}">
+                    <thead>
+                    <tr>
+                        <th colspan="5" class="text-center"><h3 th:text="#{admin.examsForGroup} + ' ' + ${selectedGroup.name}">Exams for group</h3></th>
+                    </tr>
+                    <tr>
+                        <th th:text="#{date}">Date</th>
+                        <th th:text="#{time}">Time</th>
+                        <th th:text="#{subject}">Subject</th>
+                        <th th:text="#{room}">Room</th>
+                        <th class="text-right" th:text="#{admin.actions}">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.size(exams)} lt 1"><td colspan="9" class="text-center"><b th:text="#{noExams}">No exams</b></td></tr>
+                    <tr th:each="exam : ${exams}">
+                        <td th:text="${exam.dateTime.toLocalDate()}">Date</td>
+                        <td th:text="${exam.getDateTime().toLocalTime()}">Time</td>
+                        <td width="30%" th:text="${exam.subject.name} + '|' + ${exam.subject.teacher.name}">Subject</td>
+                        <td th:text="${exam.room}">Room</td>
+                        <td class="text-right"><a th:href="@{/admin/exams/editExam/} + ${exam.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
+                        <form class="deleteForm" th:action="@{/admin/exams/delete}" method="POST">
+                            <input name="deleteId" id="deleteId" hidden="hidden" type="text" th:value="${exam.id}"/>
+                            <input type="submit" th:value="#{admin.delete}" class="btn btn-danger btn-sm"/>
+                        </form></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer th:include="page :: footer"></footer>
+    </div>
+</body>
+</html>

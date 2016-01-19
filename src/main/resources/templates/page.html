@@ -40,6 +40,8 @@
                 Edit news</a></li>
             <li th:class="${currentTab eq 'schedule'}? 'active': ''"><a th:href="@{/admin/schedule}" th:text="#{admin.menu.editSchedule}">
                 Edit schedule</a></li>
+            <li th:class="${currentTab eq 'exams'}? 'active': ''"><a th:href="@{/admin/exams}" th:text="#{admin.menu.editExams}">
+                Edit schedule</a></li>
             <li th:class="${currentTab eq 'groups'}? 'active': ''"><a th:href="@{/admin/groups}" th:text="#{admin.menu.editGroups}">
                 Edit groups</a></li>
             <li th:class="${currentTab eq 'subjects'? 'active': ''}"><a th:href="@{/admin/subjects}" th:text="#{admin.menu.editSubjects}">
