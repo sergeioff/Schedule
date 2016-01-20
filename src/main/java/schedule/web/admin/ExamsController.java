@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import schedule.dao.ExamsDao;
+import schedule.dao.ExamDao;
 import schedule.dao.GroupDao;
 import schedule.models.Exam;
 import schedule.models.Group;
@@ -22,10 +22,10 @@ import java.util.Locale;
 public class ExamsController {
     private GroupDao groupRepository;
     private MessageSource messageSource;
-    private ExamsDao examsRepository;
+    private ExamDao examsRepository;
 
     @Autowired
-    public ExamsController(GroupDao groupRepository, MessageSource messageSource, ExamsDao examsRepository) {
+    public ExamsController(GroupDao groupRepository, MessageSource messageSource, ExamDao examsRepository) {
         this.groupRepository = groupRepository;
         this.messageSource = messageSource;
         this.examsRepository = examsRepository;

@@ -8,7 +8,7 @@ import schedule.models.Group;
 
 import java.util.List;
 
-public interface ExamsDao extends JpaRepository<Exam, Long> {
+public interface ExamDao extends JpaRepository<Exam, Long> {
     Exam getExamById(Long id);
     Exam save(Exam exam);
     void delete(Exam exam);

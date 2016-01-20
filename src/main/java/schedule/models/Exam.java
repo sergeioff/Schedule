@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "Exams")
@@ -77,5 +78,13 @@ public class Exam {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getFormattedTime() {
+        return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
+    public String getFormattedDate() {
+        return dateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 }

@@ -44,7 +44,7 @@
                     <tr th:if="${#lists.size(exams)} lt 1"><td colspan="9" class="text-center"><b th:text="#{noExams}">No exams</b></td></tr>
                     <tr th:each="exam : ${exams}">
                         <td th:text="${exam.dateTime.toLocalDate()}">Date</td>
-                        <td th:text="${exam.getDateTime().toLocalTime()}">Time</td>
+                        <td th:text="${exam.dateTime.toLocalTime()}">Time</td>
                         <td width="30%" th:text="${exam.subject.name} + '|' + ${exam.subject.teacher.name}">Subject</td>
                         <td th:text="${exam.room}">Room</td>
                         <td class="text-right"><a th:href="@{/admin/exams/editExam/} + ${exam.id}" th:text="#{admin.edit}" class="btn btn-warning btn-sm">Edit</a>
