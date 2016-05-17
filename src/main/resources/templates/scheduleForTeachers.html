@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.com">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title th:text="#{titles.forTeachers}">Schedule</title>
@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label for="weekSelect" th:text="#{week}">Week:</label>
                             <select id="weekSelect" th:field="*{selectedWeek}" name="selectedWeek" class="form-control">
-                                <option th:each="week : ${#numbers.sequence(startWeek, finalWeek)}"
+                                <option th:each="week : ${#numbers.sequence(startWeek,finalWeek)}"
                                         th:value="${week}" th:text="${week}">Week</option>
                             </select>
                         </div>
