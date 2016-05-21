@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{titles.admin.weeks}">Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <header th:include="page :: header"></header>
+            <div class="center-block center-wrapper">
+                <h2 th:if="${action} eq 'add'" th:text="#{admin.weekAdding}" class="text-center">Add</h2>
+                <h2 th:if="${action} eq 'edit'" th:text="#{admin.weekEditing}" class="text-center">Edit</h2>
+                <form class="form-horizontal" th:object="${week}" method="post">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('*')}"
+                                th:text="${error}">error</li>
+                        </ul>
+                    </div>
+                    <div th:class="${#fields.hasErrors('number')}? 'form-group has-error': 'form-group'">
+                        <label th:for="number" class="col-sm-4 control-label" th:text="#{admin.number}">number</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" th:field="*{number}" min="1" max="25"/>
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('start')}? 'form-group has-error': 'form-group'">
+                        <label th:for="start" class="col-sm-4 control-label" th:text="#{admin.start}">Start</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" th:field="*{start}" placeholder="2016-12-19"/>
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('end')}? 'form-group has-error': 'form-group'">
+                        <label th:for="end" class="col-sm-4 control-label" th:text="#{admin.end}">End</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" th:field="*{end}" placeholder="2016-12-19"/>
+                        </div>
+                    </div>
+                    <div class="form-buttons text-center">
+                        <a th:href="@{/admin/weeks}" class="btn btn-danger" th:text="#{admin.cancel}">Cancel</a>
+                        <input type="submit" th:value="#{admin.save}" class="btn btn-success"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer th:include="page :: footer"></footer>
+    </div>
+</body>
+</html>

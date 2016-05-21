@@ -11,6 +11,7 @@ import schedule.dao.GroupDao;
 import schedule.models.Exam;
 import schedule.models.Group;
 import schedule.models.forms.ExamsScheduleSelectForm;
+import schedule.utils.CurrentWeekService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +22,14 @@ import java.time.format.DateTimeFormatter;
 public class ExamsScheduleController {
     private GroupDao groupsRepository;
     private ExamDao examsRepository;
+    private CurrentWeekService currentWeekService;
 
     @Autowired
-    public ExamsScheduleController(GroupDao groupsRepository, ExamDao examsRepository) {
+    public ExamsScheduleController(GroupDao groupsRepository, ExamDao examsRepository,
+                                   CurrentWeekService currentWeekService) {
         this.groupsRepository = groupsRepository;
         this.examsRepository = examsRepository;
+        this.currentWeekService = currentWeekService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -42,6 +46,7 @@ public class ExamsScheduleController {
         }
 
         model.addAttribute("groups", groupsRepository.getAllGroups());
+        model.addAttribute("currentWeek", currentWeekService.getCurrentWeek());
 
         return "examsSchedule";
     }

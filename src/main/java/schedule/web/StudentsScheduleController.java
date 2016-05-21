@@ -12,6 +12,7 @@ import schedule.dao.PairDao;
 import schedule.models.Pair;
 import schedule.models.Settings;
 import schedule.models.forms.StudentScheduleSelectForm;
+import schedule.utils.CurrentWeekService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +26,15 @@ public class StudentsScheduleController {
     private PairDao pairsRepository;
     private GroupDao groupsRepository;
     private BuzzerDao buzzersRepository;
+    private CurrentWeekService currentWeekService;
 
     @Autowired
-    public StudentsScheduleController(PairDao pairsRepository, GroupDao groupsRepository, BuzzerDao buzzersRepository) {
+    public StudentsScheduleController(PairDao pairsRepository, GroupDao groupsRepository,
+                                      BuzzerDao buzzersRepository, CurrentWeekService currentWeekService) {
         this.pairsRepository = pairsRepository;
         this.groupsRepository = groupsRepository;
         this.buzzersRepository = buzzersRepository;
+        this.currentWeekService = currentWeekService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -75,6 +79,7 @@ public class StudentsScheduleController {
         model.addAttribute("subgroupsCount", Settings.getSubgroupsInGroup());
         model.addAttribute("startWeek", Settings.getStartWeek());
         model.addAttribute("finalWeek", Settings.getFinalWeek());
+        model.addAttribute("currentWeek", currentWeekService.getCurrentWeek());
 
         return "scheduleForStudents";
     }

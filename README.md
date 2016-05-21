@@ -11,14 +11,12 @@ Admin panel isn't secured at the moment and you can see it [here](http://arcane-
 ## Implemented features:
 * Schedule for students
 * Schedule for teachers
+* Schedule of exams 
 * Administration panel
 * Buzzers schedule
 * English and Russian localisation
+* Display of study week
 
 ## Features to do:
 * Add Spring Security to admin panel
-* Schedule of exams 
-* Schedule for extramural students
-* Display study week
 * Add Ukrainian localisation
-* Add some JS to admin panel (table sort, alert windows)
