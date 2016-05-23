@@ -37,23 +37,23 @@
                             <th colspan="6" class="text-center"><h3 th:text="#{day + ${day.key}}">Day</h3></th>
                         </tr>
                         <tr th:if="${#lists.size(day.value)} gt 0">
-                            <th>#</th>
-                            <th th:text="#{time}">Time</th>
-                            <th th:text="#{subject}">Subject</th>
-                            <th th:text="#{type}">Type</th>
-                            <th th:text="#{group}">Group</th>
-                            <th th:text="#{room}">Room</th>
+                            <th class="number-col">#</th>
+                            <th class="time-col" th:text="#{time}">Time</th>
+                            <th class="subject-col" th:text="#{subject}">Subject</th>
+                            <th class="type-col" th:text="#{type}">Type</th>
+                            <th class="group-col" th:text="#{group}">Group</th>
+                            <th class="room-col" th:text="#{room}">Room</th>
                         </tr>
                         <tr th:if="${#lists.isEmpty(day.value)}"><td colspan="8" class="text-center"><h4 th:text="#{noPairs}">No pairs</h4></td></tr>
                         </thead>
                         <tbody>
                         <tr th:each="pair : ${day.value}" th:if="${pair != null}">
-                            <td th:text="${pair.numberInDay}"></td>
-                            <td th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
-                            <td th:text="${pair.subject.name}"></td>
-                            <td th:text="${pair.type.name}"></td>
-                            <td th:text="${pair.currentGroup.name}"></td>
-                            <td th:text="${pair.room}"></td>
+                            <td class="number-col" th:text="${pair.numberInDay}"></td>
+                            <td class="time-col" th:text="${buzzers.get(pair.numberInDay - 1).startTime} + ' - ' + ${buzzers.get(pair.numberInDay - 1).endTime}"></td>
+                            <td class="subject-col" th:text="${pair.subject.name}"></td>
+                            <td class="type-col" th:text="${pair.type.name}"></td>
+                            <td class="group-col" th:text="${pair.currentGroup.name}"></td>
+                            <td class="room-col" th:text="${pair.room}"></td>
                         </tr>
                         </tbody>
                     </table>

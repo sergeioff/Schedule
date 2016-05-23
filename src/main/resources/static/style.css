@@ -108,3 +108,27 @@ footer {
     background: #2c3e50;
     height: 90px;
 }
+
+.number-col {
+    width: 5%;
+}
+
+.time-col {
+    width: 10%;
+}
+
+.subject-col {
+    width: 30%;
+}
+
+.type-col {
+    width: 10%;
+}
+
+.teacher-col, .group-col {
+    width: 25%;
+}
+
+.room-col {
+    width: 10%;
+}
