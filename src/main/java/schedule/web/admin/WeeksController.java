@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import schedule.dao.WeeksDao;
 import schedule.models.Week;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.Locale;
 

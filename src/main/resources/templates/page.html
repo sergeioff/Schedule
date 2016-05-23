@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
 <header th:fragment="header">
     <nav class="navbar navbar-default">
@@ -17,6 +18,7 @@
                     <li><a th:href="@{/forStudents}" th:text="#{mainMenu.forStudents}">For students</a></li>
                     <li><a th:href="@{/forTeachers}" th:text="#{mainMenu.forTeachers}">For teachers</a></li>
                     <li><a th:href="@{/exams}" th:text="#{mainMenu.exams}">Exams</a></li>
+                    <li sec:authorize="isAuthenticated()"><a class="logout" th:href="@{/logout}">Logout</a></li>
                     <li th:if="${currentWeek}"><a th:text="${currentWeek} + ' ' + #{week}"></a></li>
                 </ul>
                 <ul class="nav navbar-nav languageSelect hidden-xs">

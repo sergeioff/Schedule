@@ -132,3 +132,8 @@ footer {
 .room-col {
     width: 10%;
 }
+
+.logout {
+    color: red !important;
+    font-weight: bold;
+}
