@@ -24,8 +24,8 @@
                 </div>
                 <div>
                     <h3 class="text-center" th:if="${exams eq null}" th:text="#{selectGroupMessage}">Select a group</h3>
-                    <h3 class="text-center" th:if="${#lists.isEmpty(exams)}" th:text="#{noExamsInfo}">No exams</h3>
-                    <table th:if="${#lists.size(exams) gt 0}" class="table table-responsive scheduleTable">
+                    <h3 class="text-center" th:if="${exams} and ${#lists.isEmpty(exams)}" th:text="#{noExamsInfo}">No exams</h3>
+                    <table th:if="${exams} and ${#lists.size(exams) gt 0}" class="table table-responsive scheduleTable">
                         <thead>
                         <tr>
                             <th colspan="5" class="text-center"><h3 th:text="#{examsFor} + ' ' + ${selectedGroupName}">Exams for</h3></th>
