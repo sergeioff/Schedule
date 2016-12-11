@@ -1,5 +1,7 @@
 package schedule.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -19,8 +21,10 @@ public class BuzzerOnPair {
     @Max(10)
     private Integer pairNumber;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime startTime;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime endTime;
 
     public BuzzerOnPair() {
