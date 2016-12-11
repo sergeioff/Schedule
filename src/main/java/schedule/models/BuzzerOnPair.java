@@ -19,10 +19,8 @@ public class BuzzerOnPair {
     @Max(10)
     private Integer pairNumber;
 
-    @NotNull(message = "{timeFormatError}")
     private LocalTime startTime;
 
-    @NotNull(message = "{timeFormatError}")
     private LocalTime endTime;
 
     public BuzzerOnPair() {
