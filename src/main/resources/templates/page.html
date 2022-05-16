@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <header th:fragment="header">
     <nav class="navbar navbar-default">
@@ -21,9 +21,9 @@
                     <li sec:authorize="isAuthenticated()"><a class="logout" th:href="@{/logout}" th:text="#{login.logout}">Logout</a></li>
                 </ul>
                 <ul class="nav navbar-nav languageSelect hidden-xs">
-                    <li><a th:href="@{?lang=en}"><img class="languageImg" th:src="@{/img/en.gif}" alt="English"/></a></li>
-                    <li><a th:href="@{?lang=ru}"><img class="languageImg" th:src="@{/img/ru.gif}" alt="Русский"/></a></li>
-                    <li><a th:href="@{?lang=ua}"><img class="languageImg" th:src="@{/img/ua.gif}" alt="Українська"/></a></li>
+                    <li><a th:href="@{?lang=en}"><img class="languageImg" th:src="@{/static/img/en.gif}" alt="English"/></a></li>
+                    <li><a th:href="@{?lang=ru}"><img class="languageImg" th:src="@{/static/img/ru.gif}" alt="Русский"/></a></li>
+                    <li><a th:href="@{?lang=ua}"><img class="languageImg" th:src="@{/static/img/ua.gif}" alt="Українська"/></a></li>
                 </ul>
             </div>
         </div>
